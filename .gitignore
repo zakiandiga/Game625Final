@@ -58,3 +58,8 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
+Assets/Sprites/SRP.meta
+Assets/Sprites/SRP/PBR_HD.zip
+Assets/Sprites/SRP/PBR_HD.zip.meta
+Assets/Sprites/SRP/PBR_LW.zip
+Assets/Sprites/SRP/PBR_LW.zip.meta

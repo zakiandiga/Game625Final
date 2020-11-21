@@ -1,0 +1,537 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e251860fcd970734c9f14ebd98a146c3, type: 3}
+  m_Name: GS-20201121 - 025234
+  m_EditorClassIdentifier: 
+  m_name: Session 20201121-025234
+  m_description: 'Rocking out at Creativity Central!
+
+
+    If you like Gaia please
+    consider rating it :)'
+  m_previewImage: {fileID: 0}
+  m_dateCreated: 11/21/2020 2:52:34 AM
+  m_terrainWidth: 512
+  m_terrainDepth: 512
+  m_terrainHeight: 512
+  m_seaLevel: 39.5
+  m_spawnDensity: 0.8
+  m_isLocked: 0
+  m_previewImageBytes: 
+  m_previewImageWidth: 0
+  m_previewImageHeight: 0
+  m_operations:
+  - m_description: 'Creating World: 1 x 1 tiles, tile size: 512'
+    m_operationType: 0
+    m_isActive: 1
+    m_affectedTerrainNames: []
+    m_operationDateTime: 11/21/2020 2:52:38 AM
+    scriptableObjectAssetGUID: aa79862c508fe254791de3269db2eb66
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: RaiseHeight - No Masks
+    m_operationType: 4
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20201121 - 025236
+    m_operationDateTime: 11/21/2020 2:57:03 AM
+    scriptableObjectAssetGUID: 5546ff1a8e477ff4fbe37adc6ce73ef9
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: Spawning - Synty Texture Spawner(Clone)
+    m_operationType: 7
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20201121 - 025236
+    m_operationDateTime: 11/21/2020 2:57:06 AM
+    scriptableObjectAssetGUID: 4a138b3095f21de48996686d25ae0936
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: Smooth - No Masks
+    m_operationType: 4
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20201121 - 025236
+    m_operationDateTime: 11/21/2020 2:57:44 AM
+    scriptableObjectAssetGUID: 2bf4f66962c4dbd489832385e6120629
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: Spawning - Synty Texture Spawner(Clone)
+    m_operationType: 7
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20201121 - 025236
+    m_operationDateTime: 11/21/2020 2:57:46 AM
+    scriptableObjectAssetGUID: 857fea10e6413034fb820a22190f2f6a
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: Spawning - Synty Texture Spawner(Clone)
+    m_operationType: 7
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20201121 - 025236
+    m_operationDateTime: 11/21/2020 2:57:47 AM
+    scriptableObjectAssetGUID: 5671b2d4feef2174b8ceceeb39263f20
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: Undo - 1 Terrains
+    m_operationType: 5
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20201121 - 025236
+    m_operationDateTime: 11/21/2020 2:57:53 AM
+    scriptableObjectAssetGUID: 79827f8396b11ff4b9c9eb475d1a3de6
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: RaiseHeight - CollisionMask
+    m_operationType: 4
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20201121 - 025236
+    m_operationDateTime: 11/21/2020 3:10:48 AM
+    scriptableObjectAssetGUID: 0f278a31e90cb0d48b731b9f9e01da98
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: Spawning - Synty Texture Spawner(Clone)
+    m_operationType: 7
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20201121 - 025236
+    m_operationDateTime: 11/21/2020 3:10:51 AM
+    scriptableObjectAssetGUID: be46f2bf0d6ebd74bbe3f2d49d7173d3
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: MixHeight - No Masks
+    m_operationType: 4
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20201121 - 025236
+    m_operationDateTime: 11/21/2020 3:12:53 AM
+    scriptableObjectAssetGUID: 2ad24256fe873bc47afcc941259f9137
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: Spawning - Synty Texture Spawner(Clone)
+    m_operationType: 7
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20201121 - 025236
+    m_operationDateTime: 11/21/2020 3:12:55 AM
+    scriptableObjectAssetGUID: d1c24088d0fc114479fabe66e94828a3
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: Spawning - Synty Texture Spawner(Clone)
+    m_operationType: 7
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20201121 - 025236
+    m_operationDateTime: 11/21/2020 3:12:55 AM
+    scriptableObjectAssetGUID: d1c24088d0fc114479fabe66e94828a3
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: MixHeight - No Masks
+    m_operationType: 4
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20201121 - 025236
+    m_operationDateTime: 11/21/2020 3:22:48 AM
+    scriptableObjectAssetGUID: fcaaa8aa098da4744b8f5ff344e0eaae
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: Spawning - Synty Texture Spawner(Clone)
+    m_operationType: 7
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20201121 - 025236
+    m_operationDateTime: 11/21/2020 3:22:50 AM
+    scriptableObjectAssetGUID: a8e08e525005d9e4f9172bd8567f4e9f
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: Smooth - DistanceMask
+    m_operationType: 4
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20201121 - 025236
+    m_operationDateTime: 11/21/2020 3:32:32 AM
+    scriptableObjectAssetGUID: 4a1491f5ab263d64185188f79231f234
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: Spawning - Synty Texture Spawner(Clone)
+    m_operationType: 7
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20201121 - 025236
+    m_operationDateTime: 11/21/2020 3:32:34 AM
+    scriptableObjectAssetGUID: f02c320fff9e5684aa75ad3b873458b4
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: HeightTransform - DistanceMask
+    m_operationType: 4
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20201121 - 025236
+    m_operationDateTime: 11/21/2020 3:34:19 AM
+    scriptableObjectAssetGUID: 5aff44f8d745fbf4f861d02bd3b838a7
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: Spawning - Synty Texture Spawner(Clone)
+    m_operationType: 7
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20201121 - 025236
+    m_operationDateTime: 11/21/2020 3:34:22 AM
+    scriptableObjectAssetGUID: 4aaff2b406e1a6440868ec144277e859
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: HeightTransform - DistanceMask
+    m_operationType: 4
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20201121 - 025236
+    m_operationDateTime: 11/21/2020 3:38:09 AM
+    scriptableObjectAssetGUID: 937b7b9fc8596ff48b9675de1776e057
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: Spawning - Synty Texture Spawner(Clone)
+    m_operationType: 7
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20201121 - 025236
+    m_operationDateTime: 11/21/2020 3:38:12 AM
+    scriptableObjectAssetGUID: cf3886d5deda48f4da98aed7c0587de2
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: BlendHeight - Smooth
+    m_operationType: 4
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20201121 - 025236
+    m_operationDateTime: 11/21/2020 3:42:05 AM
+    scriptableObjectAssetGUID: 330f749b34f36e7458b85ec71f39fced
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: Spawning - Synty Texture Spawner(Clone)
+    m_operationType: 7
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20201121 - 025236
+    m_operationDateTime: 11/21/2020 3:42:07 AM
+    scriptableObjectAssetGUID: c6deb6bc6bca7354f8a2ba2fff023f8f
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: Undo - 1 Terrains
+    m_operationType: 5
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20201121 - 025236
+    m_operationDateTime: 11/21/2020 3:42:22 AM
+    scriptableObjectAssetGUID: 2e05db9af0b45cf478875cb77bb2cc10
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: BlendHeight - DistanceMask
+    m_operationType: 4
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20201121 - 025236
+    m_operationDateTime: 11/21/2020 3:43:23 AM
+    scriptableObjectAssetGUID: 43ecc4e5442a39740a3ae210cbd46d8e
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: Spawning - Synty Texture Spawner(Clone)
+    m_operationType: 7
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20201121 - 025236
+    m_operationDateTime: 11/21/2020 3:43:25 AM
+    scriptableObjectAssetGUID: ac6cb54e7c3bbdd4e887917d12afecf3
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: RaiseHeight - DistanceMask
+    m_operationType: 4
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20201121 - 025236
+    m_operationDateTime: 11/21/2020 3:46:53 AM
+    scriptableObjectAssetGUID: 574528021c6c6804f87b7dadf72494a9
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: Spawning - Synty Texture Spawner(Clone)
+    m_operationType: 7
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20201121 - 025236
+    m_operationDateTime: 11/21/2020 3:46:56 AM
+    scriptableObjectAssetGUID: ab1f2c46ca055b14c8ca67acbf813187
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: Spawning - Synty Texture Spawner(Clone)
+    m_operationType: 7
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20201121 - 025236
+    m_operationDateTime: 11/21/2020 3:46:56 AM
+    scriptableObjectAssetGUID: 41d7d1613e7f0544f9358ff9182305a1
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: Undo - 1 Terrains
+    m_operationType: 5
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20201121 - 025236
+    m_operationDateTime: 11/21/2020 3:47:10 AM
+    scriptableObjectAssetGUID: dec808cd4ac00794a94d9d291f220cc3
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: RaiseHeight - DistanceMask
+    m_operationType: 4
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20201121 - 025236
+    m_operationDateTime: 11/21/2020 3:47:33 AM
+    scriptableObjectAssetGUID: 5946d42d99b73fb47853b7f707ef9627
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: Spawning - Synty Texture Spawner(Clone)
+    m_operationType: 7
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20201121 - 025236
+    m_operationDateTime: 11/21/2020 3:47:34 AM
+    scriptableObjectAssetGUID: 428f17ca02465b14990805ab20d9c4fa
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: Spawning - Synty Texture Spawner(Clone)
+    m_operationType: 7
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20201121 - 025236
+    m_operationDateTime: 11/21/2020 3:47:36 AM
+    scriptableObjectAssetGUID: 5abf38889ac3f874a934abedb3e49bb7
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: RaiseHeight - DistanceMask
+    m_operationType: 4
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20201121 - 025236
+    m_operationDateTime: 11/21/2020 3:48:30 AM
+    scriptableObjectAssetGUID: 9ebded2c2949814448eeb60c52b65641
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: Spawning - Synty Texture Spawner(Clone)
+    m_operationType: 7
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20201121 - 025236
+    m_operationDateTime: 11/21/2020 3:48:32 AM
+    scriptableObjectAssetGUID: 7fdfec070aaf0e342b4553c06cf4dba0
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: Undo - 1 Terrains
+    m_operationType: 5
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20201121 - 025236
+    m_operationDateTime: 11/21/2020 3:48:39 AM
+    scriptableObjectAssetGUID: d6aa0506fc2c4634e88aa144a6eca951
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: RaiseHeight - DistanceMask
+    m_operationType: 4
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20201121 - 025236
+    m_operationDateTime: 11/21/2020 3:49:23 AM
+    scriptableObjectAssetGUID: f09e11fade1f2d748a19fb00d1aac231
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: Spawning - Synty Texture Spawner(Clone)
+    m_operationType: 7
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20201121 - 025236
+    m_operationDateTime: 11/21/2020 3:49:25 AM
+    scriptableObjectAssetGUID: ec8b96b3324aab647b9fefb175e56476
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: RaiseHeight - DistanceMask
+    m_operationType: 4
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20201121 - 025236
+    m_operationDateTime: 11/21/2020 3:51:21 AM
+    scriptableObjectAssetGUID: 2c303900a796ae4429f36b805e61ea13
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: Spawning - Synty Texture Spawner(Clone)
+    m_operationType: 7
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20201121 - 025236
+    m_operationDateTime: 11/21/2020 3:51:23 AM
+    scriptableObjectAssetGUID: edd3b02461665024f9865925a55b18bd
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: Spawning - Synty Texture Spawner(Clone)
+    m_operationType: 7
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20201121 - 025236
+    m_operationDateTime: 11/21/2020 3:58:42 AM
+    scriptableObjectAssetGUID: e66a7d88e5120e04a84d804c221a80e5
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: Spawning - Synty Texture Spawner(Clone)
+    m_operationType: 7
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20201121 - 025236
+    m_operationDateTime: 11/21/2020 3:59:34 AM
+    scriptableObjectAssetGUID: 83d9ae687e241c04eb6e4e9d50f9ac18
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: Spawning - Synty Tree Spawner(Clone)
+    m_operationType: 7
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20201121 - 025236
+    m_operationDateTime: 11/21/2020 4:06:21 AM
+    scriptableObjectAssetGUID: 5f8bf5c58a6f8c84bab326870f2177fb
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: Spawning - Synty Detail Spawner(Clone)
+    m_operationType: 7
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20201121 - 025236
+    m_operationDateTime: 11/21/2020 4:19:53 AM
+    scriptableObjectAssetGUID: 7d08847fc1a7fa4419912701ee8da2f3
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: Spawning - Synty Detail Spawner(Clone)
+    m_operationType: 7
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20201121 - 025236
+    m_operationDateTime: 11/21/2020 4:24:30 AM
+    scriptableObjectAssetGUID: b09652edde86dff498d7f6d5e380768b
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  m_terrainMinMaxCache:
+  - guid: acd0f4d10e75d5e428a42f21629575f1
+    isWorldmap: 0
+    recalculate: 0
+    min: 15.250233
+    max: 79.71996
+  m_bakedMaskCacheEntries:
+  - fileName: Terrain_0_0-20201121 - 025236_Tag_Synty Small Farm_50
+    assetPath: Assets/Procedural Worlds/Gaia/TerrainCollisionData/Terrain_0_0-20201121
+      - 025236/Terrain_0_0-20201121 - 025236_Tag_Synty Small Farm_50
+    fullPath: G:/Works/PersonalGames/_UnityCustomPackage/Gaia2/Gaia2/Assets/Procedural
+      Worlds/Gaia/TerrainCollisionData/Terrain_0_0-20201121 - 025236/Terrain_0_0-20201121
+      - 025236_Tag_Synty Small Farm_50
+    texture: {fileID: 0}
+  - fileName: Terrain_0_0-20201121 - 025236_Tag_Synty Medium Farm_100
+    assetPath: Assets/Procedural Worlds/Gaia/TerrainCollisionData/Terrain_0_0-20201121
+      - 025236/Terrain_0_0-20201121 - 025236_Tag_Synty Medium Farm_100
+    fullPath: G:/Works/PersonalGames/_UnityCustomPackage/Gaia2/Gaia2/Assets/Procedural
+      Worlds/Gaia/TerrainCollisionData/Terrain_0_0-20201121 - 025236/Terrain_0_0-20201121
+      - 025236_Tag_Synty Medium Farm_100
+    texture: {fileID: 0}
+  m_worldBiomeMaskSettings: {fileID: 0}
