@@ -513,25 +513,44 @@ MonoBehaviour:
     sessionPlaybackState: 1
     m_terrainsFoldedOut: 0
     m_serializedExternalAction: 
+  - m_description: Spawning - Synty Texture Spawner(Clone)
+    m_operationType: 7
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20201121 - 025236
+    m_operationDateTime: 11/21/2020 3:30:34 PM
+    scriptableObjectAssetGUID: f1b7c905ce8050c40a169fd965257d20
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: Spawning - Synty Texture Spawner(Clone)
+    m_operationType: 7
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20201121 - 025236
+    m_operationDateTime: 11/21/2020 3:32:49 PM
+    scriptableObjectAssetGUID: 239aa593dcd06e0458e282e89b4bdae3
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: Spawning - Synty Texture Spawner(Clone)
+    m_operationType: 7
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20201121 - 025236
+    m_operationDateTime: 11/21/2020 3:34:42 PM
+    scriptableObjectAssetGUID: ac2de6deecb92434f9ee7af88af1295d
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
   m_terrainMinMaxCache:
   - guid: acd0f4d10e75d5e428a42f21629575f1
     isWorldmap: 0
     recalculate: 0
     min: 15.250233
     max: 79.71996
-  m_bakedMaskCacheEntries:
-  - fileName: Terrain_0_0-20201121 - 025236_Tag_Synty Small Farm_50
-    assetPath: Assets/Procedural Worlds/Gaia/TerrainCollisionData/Terrain_0_0-20201121
-      - 025236/Terrain_0_0-20201121 - 025236_Tag_Synty Small Farm_50
-    fullPath: G:/Works/PersonalGames/_UnityCustomPackage/Gaia2/Gaia2/Assets/Procedural
-      Worlds/Gaia/TerrainCollisionData/Terrain_0_0-20201121 - 025236/Terrain_0_0-20201121
-      - 025236_Tag_Synty Small Farm_50
-    texture: {fileID: 0}
-  - fileName: Terrain_0_0-20201121 - 025236_Tag_Synty Medium Farm_100
-    assetPath: Assets/Procedural Worlds/Gaia/TerrainCollisionData/Terrain_0_0-20201121
-      - 025236/Terrain_0_0-20201121 - 025236_Tag_Synty Medium Farm_100
-    fullPath: G:/Works/PersonalGames/_UnityCustomPackage/Gaia2/Gaia2/Assets/Procedural
-      Worlds/Gaia/TerrainCollisionData/Terrain_0_0-20201121 - 025236/Terrain_0_0-20201121
-      - 025236_Tag_Synty Medium Farm_100
-    texture: {fileID: 0}
+  m_bakedMaskCacheEntries: []
   m_worldBiomeMaskSettings: {fileID: 0}

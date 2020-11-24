@@ -87,16 +87,16 @@ Material:
     - _Metallic: 0.228
     - _NormalFadeDistance: 300.14
     - _NormalFadeStart: 50
-    - _NormalLayer0: 0.4
+    - _NormalLayer0: 1.18
     - _NormalLayer0Scale: 1.18
-    - _NormalLayer1: 0.6
+    - _NormalLayer1: 0.23
     - _NormalLayer1Scale: 0.23
     - _NormalLayer2Scale: 1.07
     - _NormalMoveScale: 0.0003
     - _NormalMoveSpeed: 0.01
     - _NormalTile: 512
     - _PW_DstBlend: 0
-    - _PW_MainLightIntensity: 2
+    - _PW_MainLightIntensity: 1.49
     - _PW_SSS: 1
     - _PW_SSSDistortion: 0.34
     - _PW_SSSPower: 1
@@ -134,8 +134,8 @@ Material:
     - _MainLightFresnel: {r: 0.052643288, g: 0.0726428, b: 0.122641504, a: 1}
     - _MainLightPos: {r: 0, g: 0, b: 0, a: 0}
     - _MainLightSpecular: {r: 0.3137255, g: 0.3137255, b: 0.3137255, a: 1}
-    - _PW_MainLightColor: {r: 1, g: 0.72329617, b: 0.5128685, a: 1}
-    - _PW_MainLightDir: {r: 0.44115892, g: 0.34202036, b: -0.8296993, a: 0}
+    - _PW_MainLightColor: {r: 1, g: 0.7942082, b: 0.5137255, a: 1}
+    - _PW_MainLightDir: {r: 0.4455034, g: 0.4539905, b: -0.7716342, a: 0}
     - _PW_MainLightSpecular: {r: 0.3137255, g: 0.27189302, b: 0.22345544, a: 1}
     - _PW_SSSTint: {r: 1, g: 1, b: 1, a: 1}
     - _ReflectionColor: {r: 0.1, g: 0.12, b: 0.17, a: 1}
