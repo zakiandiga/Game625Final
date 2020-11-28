@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 914692587b938174fb90c1d420593b7d, type: 3}
   m_Name: Location Profile
   m_EditorClassIdentifier: 
+  m_currentControllerType: 5
   m_savedCameraPosition: {x: 159.91113, y: 35.282097, z: 229.74411}
   m_savedCameraRotation: {x: 0.0010679468, y: 0.99893147, z: 0.03210823, w: -0.0332253}
   m_savedPlayerPosition: {x: 0, y: 0, z: 0}
