@@ -18,11 +18,20 @@ public class Item : ScriptableObject
         Consumable
     }
 
-    public virtual void Use()
+    public void Use() //can we store this in scriptable object?
     {
         //use effect (consume, nothing, equip, open craft menu, etc)
+        //Can we make different implementations based on ItemType here?
 
-        Debug.Log("Using " + name);
+        if(itemType == ItemType.Consumable)
+        {
+            //Consume the item
+        }
+        else
+        {
+            Debug.Log("Using " + name);
+        }
+        
     }
 }
     

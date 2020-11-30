@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float jumpHeight = 1.0f;
     [SerializeField] private float gravityValue = -9.81f; //same as unity physics value
 
-    [SerializeField] private float rotSpeed = 4f;
+    [SerializeField] private float rotationSpeed = 4f;
 
     private CharacterController controller;    
     private Vector3 playerVelocity;
@@ -39,12 +39,20 @@ public class PlayerMovement : MonoBehaviour
         OnGround,
         OnAir,
         OpeningMenu,
-        LockCam,
-        
 
     }
 
     private PlayerState playerState = PlayerState.OnGround;
+    #endregion
+
+    #region CameraMode
+    public enum CameraMode
+    {
+        Free,
+        LockOn
+    }
+
+    private CameraMode cameraMode = CameraMode.Free;
     #endregion
 
 
@@ -91,11 +99,13 @@ public class PlayerMovement : MonoBehaviour
         if (!isLocking)
         {
             playerLockCam.m_Priority = 11;
+            cameraMode = CameraMode.LockOn;
             isLocking = true;
         }
         else
         {
             playerLockCam.m_Priority = 0;
+            cameraMode = CameraMode.Free;
             isLocking = false;
         }
 
@@ -104,8 +114,10 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        
         if (EventSystem.current.IsPointerOverGameObject())
             return;
+        
 
         groundedPlayer = controller.isGrounded;
         if (controller.isGrounded && playerVelocity.y < 0)
@@ -116,8 +128,9 @@ public class PlayerMovement : MonoBehaviour
 
         //if !isGrounded, don't read
         Vector2 movement = movementControl.action.ReadValue<Vector2>();
-        Vector3 move = new Vector3(movement.x, 0 , movement.y);
+        Vector3 move = new Vector3(movement.x, 0, movement.y);
         move = cam.forward * move.z + cam.right * move.x;
+                    
         move.y = 0f;
         controller.Move(move * Time.deltaTime * playerSpeed);
 
@@ -131,17 +144,24 @@ public class PlayerMovement : MonoBehaviour
         */
         #endregion
 
-        #region FaceDir-FreeMoveCam
+        #region FaceDirection
         
         //Player face direction related to camera (Free Move Camera)
         
-        if (movement != Vector2.zero) 
+        if (movement != Vector2.zero && cameraMode == CameraMode.Free) 
         {
             float targetAngle = Mathf.Atan2(movement.x, movement.y) * Mathf.Rad2Deg + cam.eulerAngles.y;
             Quaternion rotation = Quaternion.Euler(0f, targetAngle, 0f);
-            transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * rotSpeed);
+            transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * rotationSpeed);
         }
-                
+
+        if (movement != Vector2.zero && cameraMode == CameraMode.LockOn)
+        {
+            float targetAngle = cam.eulerAngles.y;
+            Quaternion rotation = Quaternion.Euler(0f, targetAngle, 0f);
+            transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * rotationSpeed);
+        }
+
         #endregion
 
         // Changes the height position of the player..
@@ -158,6 +178,7 @@ public class PlayerMovement : MonoBehaviour
             CameraLock();            
         }
 
+        
         if(openMenu.action.triggered)
         {
             OnOpenMenu?.Invoke(this);
@@ -173,5 +194,6 @@ public class PlayerMovement : MonoBehaviour
             }
             Debug.Log("Opening Menu!!");
         }
+        
     }
 }

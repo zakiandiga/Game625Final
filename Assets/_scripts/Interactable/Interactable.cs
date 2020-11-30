@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Interactable : MonoBehaviour
+public abstract class Interactable : MonoBehaviour
 {
     public float radius = 2f;
 
@@ -8,7 +8,7 @@ public class Interactable : MonoBehaviour
     //Assign the item itself to interactionTransform if the interactable doesn't have restriction
     //Assign another object if specific point of transform needed (e.g. treasure chest face, car cockpit, etc)
     
-    [SerializeField] Transform player; //Temporary public 
+    [SerializeField] Transform player;
 
     bool isFocus = false;
     bool hasInteracted = false;
@@ -24,7 +24,7 @@ public class Interactable : MonoBehaviour
         //here, OnItemPick Announce, if isFocus, destroy, add to inventory
     }
 
-    public void OnFocused(Transform playerTransform)
+    public void OnFocused(Transform playerTransform) //Use this function to tell player that this item is currently interactable;
     {
         isFocus = true;
         player = playerTransform;

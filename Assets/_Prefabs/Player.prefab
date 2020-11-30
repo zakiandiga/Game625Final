@@ -351,7 +351,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1065910082331955119}
-  m_LocalRotation: {x: -0.02314666, y: -0.00000005593063, z: 0.000000024373598, w: 0.9997321}
+  m_LocalRotation: {x: -0.02314666, y: -0.000000011315917, z: 0.0000000049312794,
+    w: 0.9997321}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -425,7 +426,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1065910082418360859}
-  m_LocalRotation: {x: -0, y: -0.00000004888546, z: 0.000000022663945, w: 1}
+  m_LocalRotation: {x: -0, y: -0.000000017664759, z: 0.000000008189615, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -485,6 +486,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1065910082541259851}
   - component: {fileID: 1065910082541259850}
+  - component: {fileID: 656816754}
   m_Layer: 0
   m_Name: PlayerLockCam
   m_TagString: Untagged
@@ -542,6 +544,21 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 1065910083632738230}
+--- !u!114 &656816754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1065910082541259849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb7194dc27b9df64c8beca7482ee8e0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerIndex: -1
+  XYAxis: {fileID: -6287362274897013066, guid: 7891518f699f7c849b679dc2de1b0ec1, type: 3}
+  ZAxis: {fileID: 0}
 --- !u!1 &1065910082670439744
 GameObject:
   m_ObjectHideFlags: 0
@@ -662,7 +679,7 @@ MonoBehaviour:
   playerSpeed: 5
   jumpHeight: 2
   gravityValue: -100
-  rotSpeed: 10
+  rotationSpeed: 4
   cinemachineLock: {fileID: 1065910082541259849}
   isLocking: 0
 --- !u!1 &1065910083109045305
@@ -845,7 +862,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1065910083543274971}
-  m_LocalRotation: {x: -0.03694126, y: -0.00000002588877, z: 0.000000010859249, w: 0.99931747}
+  m_LocalRotation: {x: -0.03694126, y: -0.000000041755815, z: 0.000000017514807, w: 0.99931747}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:

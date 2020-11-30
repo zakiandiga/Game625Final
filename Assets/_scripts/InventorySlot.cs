@@ -27,14 +27,14 @@ public class InventorySlot : MonoBehaviour
         removeButton.interactable = false;
     }
 
-    public void OnRemoveButton()
+    public void OnRemoveButton()  //UI Button triggered
     {
         Inventory.instance.RemoveItem(item);
     }
 
-    public void UseItem()
+    public void UseItem() //UI Button triggered
     {
-        if(item!= null)
+        if(item != null)
         {
             item.Use();
         }

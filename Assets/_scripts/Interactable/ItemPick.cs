@@ -10,7 +10,7 @@ public class ItemPick : Interactable
     {
         base.Interact();
 
-        PickUp();
+        PickUp(); //Tell player to pick the item instead of directly PickUp()
     }
 
     void PickUp()
