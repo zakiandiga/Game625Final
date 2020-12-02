@@ -6,9 +6,11 @@ public class ItemPick : Interactable
 {
     public Item item;
 
+    //Item object exist in the world
+
     public override void Interact()
     {
-        base.Interact();
+        
 
         PickUp(); //Tell player to pick the item instead of directly PickUp()
     }

@@ -164,7 +164,7 @@ namespace FAE
                 //Set height to highest terrain
                 if (terrain.terrainData.size.y > height)
                 {
-                    height = terrain.transform.position.y + terrain.terrainData.size.y;
+                    height = terrain.terrainData.size.y;
                 }
                 if (terrains[i].transform.position.y < bottom)
                 {

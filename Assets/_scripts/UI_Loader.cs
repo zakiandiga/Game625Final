@@ -6,13 +6,13 @@ public class UI_Loader : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(SceneManager.GetSceneByName("UI_Display").isLoaded == false)
+        if(SceneManager.GetSceneByName("HUD_Display").isLoaded == false)
         {
-            SceneManager.LoadSceneAsync("UI_Display", LoadSceneMode.Additive);
+            SceneManager.LoadSceneAsync("HUD_Display", LoadSceneMode.Additive);
         }
         else
         {
-            SceneManager.UnloadSceneAsync("UI_Display");
+            SceneManager.UnloadSceneAsync("HUD_Display");
         }
     }
 }

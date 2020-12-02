@@ -4,7 +4,7 @@ using System;
 
 namespace GeNa.Internal
 {
-	internal class GeNaUndoSnapshot
+    internal class GeNaUndoSnapshot
     {
         /// <summary>
         /// The count of the prefab undo list of the spawner to undo to.
@@ -131,19 +131,19 @@ namespace GeNa.Internal
             {
                 TerrainData td = terrain.terrainData;
 
-				// Height
+                // Height
                 if (spawner.m_affectsHeight)
                 {
                     Heightmap = td.GetHeights(0, 0, td.heightmapResolution, td.heightmapResolution);
                 }
 
-				// Splat
+                // Splat
                 if (spawner.m_affectsTexture)
                 {
                     Splatmap = td.GetAlphamaps(0, 0, td.alphamapWidth, td.alphamapHeight);
                 }
 
-				// Detail
+                // Detail
                 if (spawner.m_affectsGrass)
                 {
                     Detailmap = new int[td.detailPrototypes.Length][,];
@@ -153,7 +153,7 @@ namespace GeNa.Internal
                     }
                 }
 
-				// Trees
+                // Trees
                 if (spawner.m_affectsTrees)
                 {
                     TreeInstances = new TreeInstance[td.treeInstanceCount];
@@ -175,110 +175,110 @@ namespace GeNa.Internal
         public static UndoSnapshotDiff operator -(GeNaUndoSnapshot a, GeNaUndoSnapshot b)
         {
             return new UndoSnapshotDiff(b, a);
-        //    bool valid = true;
-        //    if (a.Spawner != b.Spawner)
-        //    {
-        //        Debug.LogError("[GeNa]: Start/end spawner is not the same for undo/redo action.");
-        //        valid = false;
-        //    }
+            //    bool valid = true;
+            //    if (a.Spawner != b.Spawner)
+            //    {
+            //        Debug.LogError("[GeNa]: Start/end spawner is not the same for undo/redo action.");
+            //        valid = false;
+            //    }
 
-        //    if (a.Target != b.Target)
-        //    {
-        //        Debug.LogError("[GeNa]: Start/end target is not the same for undo/redo action.");
-        //        valid = false;
-        //    }
+            //    if (a.Target != b.Target)
+            //    {
+            //        Debug.LogError("[GeNa]: Start/end target is not the same for undo/redo action.");
+            //        valid = false;
+            //    }
 
-        //    if (a.ProtoInstanceCounts.Length != b.ProtoInstanceCounts.Length || a.ResourceInstanceCounts.Length != b.ResourceInstanceCounts.Length)
-        //    {
-        //        Debug.LogError("[GeNa]: Prototype count was changed between the two states. Aborting undo/redo.");
-        //        valid = false;
-        //    }
+            //    if (a.ProtoInstanceCounts.Length != b.ProtoInstanceCounts.Length || a.ResourceInstanceCounts.Length != b.ResourceInstanceCounts.Length)
+            //    {
+            //        Debug.LogError("[GeNa]: Prototype count was changed between the two states. Aborting undo/redo.");
+            //        valid = false;
+            //    }
 
-        //    if (!valid)
-        //    {
-        //        return null;
-        //    }
+            //    if (!valid)
+            //    {
+            //        return null;
+            //    }
 
-        //    GeNaUndoSnapshotDiff diff = new GeNaUndoSnapshotDiff();
+            //    GeNaUndoSnapshotDiff diff = new GeNaUndoSnapshotDiff();
 
-        //    if (diff == null)
-        //    {
-        //        diff = new GeNaUndoSnapshotDiff();
-        //    }
+            //    if (diff == null)
+            //    {
+            //        diff = new GeNaUndoSnapshotDiff();
+            //    }
 
-        //    diff.m_prefabUndoCount = a.PrefabUndoCount - b.PrefabUndoCount;
-        //    diff.m_probeUndoCount = a.ProbeUndoCount - b.ProbeUndoCount;
+            //    diff.m_prefabUndoCount = a.PrefabUndoCount - b.PrefabUndoCount;
+            //    diff.m_probeUndoCount = a.ProbeUndoCount - b.ProbeUndoCount;
 
-        //    //Instance counts
-        //    diff.m_spawnerInstanceCount = a.SpawnerInstanceCount - b.SpawnerInstanceCount;
+            //    //Instance counts
+            //    diff.m_spawnerInstanceCount = a.SpawnerInstanceCount - b.SpawnerInstanceCount;
 
-        //    diff.m_protoInstanceCounts = new long[a.ProtoInstanceCounts.Length];
-        //    diff.ResourceInstanceCounts = new long[a.ResourceInstanceCounts.Length][];
-        //    for (int i = 0; i < diff.ProtoInstanceCounts.Length; i++)
-        //    {
-        //        diff.ProtoInstanceCounts[i] = a.ProtoInstanceCounts[i] - b.ProtoInstanceCounts[i];
-                
-        //        if (a.ResourceInstanceCounts[i].Length != b.ResourceInstanceCounts[i].Length)
-        //        {
-        //            Debug.LogError("[GeNa]: Resource count was changed between the two states. Aborting undo/redo.");
-        //            return null;
-        //        }
+            //    diff.m_protoInstanceCounts = new long[a.ProtoInstanceCounts.Length];
+            //    diff.ResourceInstanceCounts = new long[a.ResourceInstanceCounts.Length][];
+            //    for (int i = 0; i < diff.ProtoInstanceCounts.Length; i++)
+            //    {
+            //        diff.ProtoInstanceCounts[i] = a.ProtoInstanceCounts[i] - b.ProtoInstanceCounts[i];
 
-        //        diff.ResourceInstanceCounts[i] = new long[a.ResourceInstanceCounts[i].Length];
-        //        for (int ri = 0; ri < diff.ResourceInstanceCounts[i].Length; ri++)
-        //        {
-        //            diff.ResourceInstanceCounts[i][ri] = a.ResourceInstanceCounts[i][ri] - b.ResourceInstanceCounts[i][ri];
-        //        }
-        //    }
+            //        if (a.ResourceInstanceCounts[i].Length != b.ResourceInstanceCounts[i].Length)
+            //        {
+            //            Debug.LogError("[GeNa]: Resource count was changed between the two states. Aborting undo/redo.");
+            //            return null;
+            //        }
 
-        //    //Splat
-        //    if (a.Splatmap != null)
-        //    {
-        //        diff.m_splatmap = new float[a.Splatmap.GetLength(0), a.Splatmap.GetLength(1), a.Splatmap.GetLength(2)];
-        //        for (int y = 0; y < diff.Splatmap.GetLength(0); y++)
-        //        {
-        //            for (int x = 0; x < diff.Splatmap.GetLength(1); x++)
-        //            {
-        //                for (int l = 0; l < diff.Splatmap.GetLength(2); l++)
-        //                {
-        //                    diff.Splatmap[y, x, l] = b.Splatmap[y, x, l] - a.Splatmap[y, x, l];
-        //                }
-        //            }
-        //        }
-        //    }
+            //        diff.ResourceInstanceCounts[i] = new long[a.ResourceInstanceCounts[i].Length];
+            //        for (int ri = 0; ri < diff.ResourceInstanceCounts[i].Length; ri++)
+            //        {
+            //            diff.ResourceInstanceCounts[i][ri] = a.ResourceInstanceCounts[i][ri] - b.ResourceInstanceCounts[i][ri];
+            //        }
+            //    }
 
-        //    //Detail
-        //    if (a.Detailmap != null)
-        //    {
-        //        diff.Detailmap = new int[a.Detailmap.Length][,];
-        //        for (int l = 0; l < diff.Detailmap.Length; l++)
-        //        {
-        //            diff.Detailmap[l] = new int[a.Detailmap[l].GetLength(0), a.Detailmap[l].GetLength(1)];
-        //            for (int y = 0; y < diff.Detailmap[l].GetLength(0); y++)
-        //            {
-        //                for (int x = 0; x < diff.Detailmap[l].GetLength(1); x++)
-        //                {
-        //                    diff.Detailmap[l][y, x] = b.Detailmap[l][y, x] - a.Detailmap[l][y, x];
-        //                }
-        //            }
-        //        }
-        //    }
+            //    //Splat
+            //    if (a.Splatmap != null)
+            //    {
+            //        diff.m_splatmap = new float[a.Splatmap.GetLength(0), a.Splatmap.GetLength(1), a.Splatmap.GetLength(2)];
+            //        for (int y = 0; y < diff.Splatmap.GetLength(0); y++)
+            //        {
+            //            for (int x = 0; x < diff.Splatmap.GetLength(1); x++)
+            //            {
+            //                for (int l = 0; l < diff.Splatmap.GetLength(2); l++)
+            //                {
+            //                    diff.Splatmap[y, x, l] = b.Splatmap[y, x, l] - a.Splatmap[y, x, l];
+            //                }
+            //            }
+            //        }
+            //    }
 
-        //    //Tree diffs
-        //    if (a.TreeInstances != null)
-        //    {
-        //        //According to the current functionality we can either add trees
-        //        if (a.TreeInstances.Length > b.TreeInstances.Length)
-        //        {
-        //            diff.SetTreeInstancesAdded(GetTreeArrayDiff(a.TreeInstances, b.TreeInstances));
-        //        }
-        //        //or remove them (while doind undo)
-        //        else if (a.TreeInstances.Length < b.TreeInstances.Length)
-        //        {
-        //            diff.SetTreeInstancesRemoved(GetTreeArrayDiff(b.TreeInstances, a.TreeInstances));
-        //        }
-        //    }
-        //  return diff;
+            //    //Detail
+            //    if (a.Detailmap != null)
+            //    {
+            //        diff.Detailmap = new int[a.Detailmap.Length][,];
+            //        for (int l = 0; l < diff.Detailmap.Length; l++)
+            //        {
+            //            diff.Detailmap[l] = new int[a.Detailmap[l].GetLength(0), a.Detailmap[l].GetLength(1)];
+            //            for (int y = 0; y < diff.Detailmap[l].GetLength(0); y++)
+            //            {
+            //                for (int x = 0; x < diff.Detailmap[l].GetLength(1); x++)
+            //                {
+            //                    diff.Detailmap[l][y, x] = b.Detailmap[l][y, x] - a.Detailmap[l][y, x];
+            //                }
+            //            }
+            //        }
+            //    }
+
+            //    //Tree diffs
+            //    if (a.TreeInstances != null)
+            //    {
+            //        //According to the current functionality we can either add trees
+            //        if (a.TreeInstances.Length > b.TreeInstances.Length)
+            //        {
+            //            diff.SetTreeInstancesAdded(GetTreeArrayDiff(a.TreeInstances, b.TreeInstances));
+            //        }
+            //        //or remove them (while doind undo)
+            //        else if (a.TreeInstances.Length < b.TreeInstances.Length)
+            //        {
+            //            diff.SetTreeInstancesRemoved(GetTreeArrayDiff(b.TreeInstances, a.TreeInstances));
+            //        }
+            //    }
+            //  return diff;
         }
 
         #region Helper methods

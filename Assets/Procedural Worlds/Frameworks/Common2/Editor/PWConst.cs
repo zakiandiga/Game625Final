@@ -17,8 +17,8 @@ namespace PWCommon2
 
         public static readonly Color LINK_COLOR = new Color(0.251f, 0.392f, 1f);
 
-        public const string DISCORD_LINK = "https://discord.gg/rtKn8rw";
-        public const string ASSETS_LINK = "https://www.assetstore.unity3d.com/en/#!/search/page=1/sortby=popularity/query=publisher:15277";
+        public const string DISCORD_LINK = "https://discord.gg/TggjQNN";
+        public const string ASSETS_LINK = "https://assetstore.unity.com/publishers/15277";
         public const string SECTR_ASSETS_LINK = "https://www.assetstore.unity3d.com/en/?stay#!/search/page=1/sortby=popularity/query=publisher:6087";
 
         public const string LOCALIZATION_FOLDER_NAME = "Localization";

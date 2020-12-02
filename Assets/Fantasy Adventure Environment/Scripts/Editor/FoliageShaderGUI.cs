@@ -16,6 +16,7 @@ namespace FAE
         //Main maps
         MaterialProperty _MainTex;
         MaterialProperty _BumpMap;
+        MaterialProperty _Color;
 
         //Color
         MaterialProperty _WindTint;
@@ -32,7 +33,8 @@ namespace FAE
         MaterialProperty _BendingInfluence;
 
         MaterialEditor m_MaterialEditor;
-
+        private Material targetMat;
+        
         //Meta
         bool showHelp;
         bool showHelpColor;
@@ -48,18 +50,28 @@ namespace FAE
         public override void OnGUI(MaterialEditor materialEditor, MaterialProperty[] props)
         {
             if (windController == null) LocateWindController();
-            this.FindProperties(props);
 
             //Receive
             visualizeVectors = WindController._visualizeVectors;
 
             this.m_MaterialEditor = materialEditor;
-
+            targetMat = (Material)materialEditor.target;
+            
+            this.FindProperties(props);
             //Style similar to Standard shader
             m_MaterialEditor.SetDefaultGUIWidths();
             m_MaterialEditor.UseDefaultMargins();
             EditorGUIUtility.labelWidth = 0f;
 
+#if UNITY_2019_3_OR_NEWER
+            if (UnityEngine.Rendering.GraphicsSettings.currentRenderPipeline != null &&
+                !targetMat.shader.name.Contains("Universal Render Pipeline"))
+            {
+                EditorGUILayout.HelpBox("A render pipeline is in use, but this material is using a shader for the Built-in render pipeline.\n\nShaders and materials can be converted through the Help window", MessageType.Error);
+                EditorGUILayout.Space();
+            }
+#endif
+            
             EditorGUI.BeginChangeCheck();
 
             //Draw fields
@@ -96,7 +108,7 @@ namespace FAE
             _MaskClipValue.floatValue = EditorGUILayout.Slider(_MaskClipValue.floatValue, 0f, 1f);
             EditorGUILayout.EndHorizontal();
             this.m_MaterialEditor.TexturePropertySingleLine(mainTexName, this._MainTex);
-            this.m_MaterialEditor.TexturePropertySingleLine(normalMapName, this._BumpMap);
+            if(targetMat.HasProperty("_BumpMap"))this.m_MaterialEditor.TexturePropertySingleLine(normalMapName, this._BumpMap);
 
             EditorGUILayout.Space();
         }
@@ -107,6 +119,7 @@ namespace FAE
             showHelpColor = GUILayout.Toggle(showHelpColor, "?", "Button", GUILayout.Width(25f)); GUILayout.Label("Color", EditorStyles.boldLabel);
             EditorGUILayout.EndHorizontal();
 
+            m_MaterialEditor.ShaderProperty(_Color, _Color.displayName);
             m_MaterialEditor.ShaderProperty(_AmbientOcclusion, _AmbientOcclusion.displayName);
             if (showHelpColor) EditorGUILayout.HelpBox("Darkens the areas of the mesh where vertex colors are applied", MessageType.None);
             m_MaterialEditor.ShaderProperty(_TransmissionAmount, _TransmissionAmount.displayName);
@@ -122,7 +135,14 @@ namespace FAE
             showHelpAnimation = GUILayout.Toggle(showHelpAnimation, "?", "Button", GUILayout.Width(25f)); GUILayout.Label("Wind animation", EditorStyles.boldLabel);
             EditorGUILayout.EndHorizontal();
 
+#if UNITY_2019_3_OR_NEWER
+            if (UnityEngine.Rendering.GraphicsSettings.currentRenderPipeline == null)
+            {
+#endif
             visualizeVectors = EditorGUILayout.Toggle("Visualize wind", visualizeVectors);
+#if UNITY_2019_3_OR_NEWER
+            }
+#endif
 
 #if !VEGETATION_STUDIO_PRO //VS Pro has an FAE wind controller
             if (!hasWindController)
@@ -145,8 +165,13 @@ namespace FAE
             if (showHelpAnimation) EditorGUILayout.HelpBox("Multiply the wind amplitude for this material.Essentally this is the size of the wind waves.", MessageType.None);     
             m_MaterialEditor.ShaderProperty(_WindSwinging, _WindSwinging.displayName);
             if (showHelpAnimation) EditorGUILayout.HelpBox("Higher values mean the object always sways back against the wind direction", MessageType.None);
-            m_MaterialEditor.ShaderProperty(_WindTint, _WindTint.displayName);
-            if (showHelpAnimation) EditorGUILayout.HelpBox("Vizualises the wind by adding a slight tint, either dark (<0) or light (>0)", MessageType.None);
+
+            if (targetMat.HasProperty("_WindTint"))
+            {
+                m_MaterialEditor.ShaderProperty(_WindTint, _WindTint.displayName);
+                if (showHelpAnimation)
+                    EditorGUILayout.HelpBox("Vizualises the wind by adding a slight tint, either dark (<0) or light (>0)", MessageType.None);
+            }
 
             if (showHelpAnimation) EditorGUILayout.HelpBox("Multiply the wind amplitude for this material. Essentally this is the size of the wind waves.", MessageType.None);
             if (!hasWindController)
@@ -182,10 +207,11 @@ namespace FAE
 
             //Main maps
             _MainTex = FindProperty("_MainTex", props);
-            _BumpMap = FindProperty("_BumpMap", props);
+            if(targetMat.HasProperty("_BumpMap")) _BumpMap = FindProperty("_BumpMap", props);
 
             //Color
-            _WindTint = FindProperty("_WindTint", props);
+            if(targetMat.HasProperty("_WindTint")) _WindTint = FindProperty("_WindTint", props);
+            _Color = FindProperty("_Color", props);
             _AmbientOcclusion = FindProperty("_AmbientOcclusion", props);
             _TransmissionSize = FindProperty("_TransmissionSize", props);
             _TransmissionAmount = FindProperty("_TransmissionAmount", props);

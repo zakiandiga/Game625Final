@@ -899,6 +899,7 @@ namespace GeNa
             Spawner.UpdateWhichProtosHaveExtensions();
         }
 
+#if UNITY_EDITOR
         /// <summary>
         /// Replace the prefab and handle recalculations for the Resource and its ancestors
         /// </summary>
@@ -906,7 +907,8 @@ namespace GeNa
         public void ReplacePrefab(GameObject go)
         {
             ReplaceThePrefab(go);
-        }
+        } 
+#endif
 
         /// <summary>
         /// Reset the Instance counters for this resource and its descendants

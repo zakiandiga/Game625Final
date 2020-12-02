@@ -15,7 +15,7 @@ namespace GeNa.Internal
             return new UndoDropStack(Preferences.UndoSteps);
         }
 
-		internal static UndoDropStack NewStack(List<UndoRecord> records)
+        internal static UndoDropStack NewStack(List<UndoRecord> records)
         {
             return new UndoDropStack(Preferences.UndoSteps, records);
         }
@@ -159,7 +159,7 @@ namespace GeNa.Internal
                 }
 #endif
                 Undo(spawner);
-				count--;
+                count--;
             }
 #if UNITY_EDITOR
             EditorUtility.ClearProgressBar();
@@ -381,7 +381,7 @@ namespace GeNa.Internal
                     {
                         float[,] heights = td.GetHeights(diff.HeightsBaseX, diff.HeightsBaseY, diff.HeightsWidth, diff.HeightsHeight);
 
-                        for (int y = 0; y < diff.HeightsHeight ; y++)
+                        for (int y = 0; y < diff.HeightsHeight; y++)
                         {
                             for (int x = 0; x < diff.HeightsWidth; x++)
                             {
@@ -407,7 +407,7 @@ namespace GeNa.Internal
 
                         for (int y = 0; y < diff.SplatHeight; y++)
                         {
-                            for (int x = 0; x < diff.SplatWidth ; x++)
+                            for (int x = 0; x < diff.SplatWidth; x++)
                             {
                                 for (int l = 0; l < diff.SplatmapLayers; l++)
                                 {

@@ -21,3 +21,5 @@ public class CraftingRecipes : ScriptableObject
     public List<Item> requiredMaterials;
     public List<Item> requiredTools;
 }
+
+// reference link: https://www.youtube.com/watch?v=bTPEMt1RG3s

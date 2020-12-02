@@ -19,13 +19,12 @@ public class Inventory : MonoBehaviour
     }
     #endregion
 
+    public int itemSpace = 20;
+    public List<Item> items = new List<Item>();
+
     public delegate void OnItemChange();  //Why delegate over static event action?
     public OnItemChange onItemChangeCallback;
 
-    public int itemSpace = 3;
-
-    public List<Item> items = new List<Item>();        
-    
     public bool AddItem(Item item)
     {
         if(items.Count >= itemSpace)

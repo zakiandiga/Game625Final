@@ -20,13 +20,15 @@ namespace FAE
         public const string ASSET_ID = "70354";
 
         public const string PACKAGE_VERSION = "20174";
-        public static string INSTALLED_VERSION = "1.5.2";
-        public const string MIN_UNITY_VERSION = "2017.4";
+        public static string INSTALLED_VERSION = "1.5.3";
+        public const string MIN_UNITY_VERSION = "2018.4";
 
         public static string DOC_URL = "http://staggart.xyz/unity/fantasy-adventure-environment/fae-documentation/";
         public static string FORUM_URL = "https://forum.unity3d.com/threads/486102";
 
+#if UNITY_2019_3_OR_NEWER
         private const string UniversalShaderPackageGUID = "7c884420a5dfbaa4db9afe42d366b843";
+#endif
 
         public static void OpenStorePage()
         {
@@ -55,13 +57,13 @@ namespace FAE
             return PACKAGE_ROOT_FOLDER;
         }
 
+#if UNITY_2019_3_OR_NEWER
         public enum ShaderInstallation
         {
             BuiltIn,
             UniversalRP
         }
 
-#if UNITY_2019_3_OR_NEWER
         public class RunOnImport : AssetPostprocessor
         {
             static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths)
@@ -96,9 +98,12 @@ namespace FAE
         private static Dictionary<string, string> ShaderRelations = new Dictionary<string, string>
         {
             //Peartickles
-            { "Legacy Shaders/Particles/Alpha Blended", urpName + "/Particles/Simple Lit" },
+            //Since 7.4.1, the legacy particle shaders will work
+            //{ "Legacy Shaders/Particles/Alpha Blended", urpName + "/Particles/Simple Lit" },
             { "Particles/Alpha Blended", urpName + "/Particles/Simple Lit" },
             { "Mobile/Particles/Alpha Blended", urpName + "/Particles/Simple Lit" },
+            { "Particles/Standard Surface", urpName + "/Particles/Simple Lit" },
+            { "Particles/Standard Unlit", urpName + "/Particles/Unlit" },
 
             { "Standard", urpName + "/Lit" },
             { "Skybox/Cubemap","Skybox/Cubemap" },
@@ -244,23 +249,7 @@ namespace FAE
                         {
                             Texture mainTex = null;
                             if (mats[i].HasProperty("_MainTex")) mainTex = mats[i].GetTexture("_MainTex");
-
-                            if ((source.Contains("WindStreak") || source.Contains("Fogsheets")))
-                            {
-                                //mats[i].EnableKeyword("_ALPHATEST_ON");
-                                mats[i].EnableKeyword("_COLORADDSUBDIFF_ON");
-                                mats[i].SetFloat("_ColorMode", 1);
-                            }
-
-                            if (source.Contains("Particle") && !source.Contains("Leaf"))
-                            {
-                                //Set material to transparent
-                                mats[i].SetFloat("_Surface", 1);
-                                mats[i].EnableKeyword("_COLORADDSUBDIFF_ON");
-                                //Additive blending
-                                mats[i].SetFloat("_ColorMode", 1);
-                            }
-
+                            
                             if (mats[i].HasProperty("_Color")) mats[i].SetColor("_BaseColor", mats[i].GetColor("_Color"));
                             if (mats[i].HasProperty("_TintColor")) mats[i].SetColor("_BaseColor", mats[i].GetColor("_TintColor"));
 
@@ -269,7 +258,35 @@ namespace FAE
 
                             if (mats[i].HasProperty("_MainTex"))
                             {
-                                mats[i].SetTexture("_BaseMap", mats[i].GetTexture("_MainTex"));
+                                mats[i].SetTexture("_BaseMap", mainTex);
+                            }
+
+
+                            if (mats[i].name.Contains("Fogsheets") || mats[i].name.Contains("Wind Streak"))
+                            {
+                                //Set material to transparent
+                                mats[i].SetOverrideTag("RenderType", "Transparent");
+#if UNITY_2021_1_OR_NEWER
+                                mats[i].SetInteger("_Surface", 1);
+                                mats[i].SetInteger("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.One);
+                                mats[i].SetInteger("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+#else
+                                mats[i].SetInt("_Surface", 1);
+                                mats[i].SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.One);
+                                mats[i].SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+#endif
+                                mats[i].DisableKeyword("_ALPHAPREMULTIPLY_ON");
+
+                                //Additive blending
+#if UNITY_2021_1_OR_NEWER
+                                mats[i].SetInteger("_ColorMode", 1);
+#else
+                                mats[i].SetInt("_ColorMode", 1);
+#endif
+                                mats[i].DisableKeyword("_COLOROVERLAY_ON");
+                                mats[i].DisableKeyword("_COLORCOLOR_ON");
+                                mats[i].EnableKeyword("_COLORADDSUBDIFF_ON");
+                                mats[i].SetVector("_BaseColorAddSubDiff", new Vector4(1.0f, 0.0f, 0.0f, 0.0f));
                             }
 
                             if (mats[i].name.Contains("Grass"))
@@ -279,7 +296,9 @@ namespace FAE
                             }
 
                             mats[i].shader = Shader.Find(dest);
+                            
                             if (mainTex) mats[i].SetTexture("_BaseMap", mainTex);
+                            
                         }
 
                         if (mats[i].HasProperty("_TransmissionAmount"))
@@ -301,13 +320,30 @@ namespace FAE
                     }
                 }
                 EditorUtility.ClearProgressBar();
-
-
+                
                 Debug.Log(count + " materials were configured for the " + config + " render pipeline");
 
                 AssetDatabase.Refresh();
                 AssetDatabase.SaveAssets();
 
+                if (config == ShaderInstallation.UniversalRP)
+                {
+                    delayTime = (float)EditorApplication.timeSinceStartup + renameDelaySec;
+                    EditorApplication.update += PostURPConversion;
+                }
+            }
+        }
+
+        private static float delayTime;
+        private const float renameDelaySec = 1f;
+        
+        private static void PostURPConversion()
+        {
+            //Wait 1s
+            if (EditorApplication.timeSinceStartup >= delayTime)
+            {
+                EditorApplication.update -= PostURPConversion;
+      
                 //If any controllers are present in the open scene, these need to be nudged to apply the correct shaders
                 CliffAppearance[] cliffConstrollers = GameObject.FindObjectsOfType<CliffAppearance>();
                 for (int i = 0; i < cliffConstrollers.Length; i++)
@@ -315,14 +351,23 @@ namespace FAE
                     cliffConstrollers[i].OnEnable();
                 }
 
-                if (config == ShaderInstallation.UniversalRP)
+                string[] shaderFileGUIDS = AssetDatabase.FindAssets("t: Shader", new[] {PACKAGE_ROOT_FOLDER + "/Shaders/URP"});
+
+                //Force a re-import of the Shader Graphs, depending on the angle of the sun, and the orbit of Jupiter, they fail to reference the FAE.hlsl file if imported last
+                for (int i = 0; i < shaderFileGUIDS.Length; i++)
                 {
-                    if (EditorUtility.DisplayDialog("Fantasy Adventure Environment", "Ensure the Depth/Opaque Texture options are enabled in your pipeline settings, otherwise the water isn't visible in the game view", "Show me", "OK"))
-                    {
-                        Selection.activeObject = UnityEngine.Rendering.GraphicsSettings.renderPipelineAsset;
-                    }
+                    AssetDatabase.ImportAsset(AssetDatabase.GUIDToAssetPath(shaderFileGUIDS[i]));
                 }
+                
+                if (EditorUtility.DisplayDialog("Fantasy Adventure Environment", "Ensure the Depth/Opaque Texture options are enabled in your pipeline settings, otherwise the water isn't visible in the game view", "Show me", "OK"))
+                {
+                    Selection.activeObject = UnityEngine.Rendering.GraphicsSettings.renderPipelineAsset;
+                }
+                
+                AssetDatabase.SaveAssets();
+                
             }
+            
         }
 #endif
     }

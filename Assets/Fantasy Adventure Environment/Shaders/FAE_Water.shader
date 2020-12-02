@@ -13,7 +13,6 @@ Shader "FAE/Water" {
         _RefractionAmount ("Refraction Amount", Range(0, 0.2)) = 0
         [NoScaleOffset][Normal]_Normals ("Normals", 2D) = "bump" {}
         [NoScaleOffset]_Shadermap ("Shadermap", 2D) = "bump" {}
-        _Reflection ("Reflection", Cube) = "_Skybox" {}
         _Tiling ("Tiling", Float ) = 0.05
         _FlowSpeed ("FlowSpeed", Float ) = 1
         [HideInInspector]_Cutoff ("Alpha cutoff", Range(0,1)) = 0.5
@@ -59,7 +58,6 @@ Shader "FAE/Water" {
             uniform sampler2D _Normals;
             uniform float _Glossiness;
             uniform float _Depth;
-            uniform samplerCUBE _Reflection;
             uniform float _Depthdarkness;
             uniform float _Tiling;
             uniform float _FlowSpeed;
@@ -182,8 +180,7 @@ Shader "FAE/Water" {
                 float2 node_6391 = ((0.2*node_4686)+node_3981*float2(0,1.1));
                 float4 node_6468 = tex2D(_Shadermap,node_6391);
                 float node_8987 = saturate((pow(saturate((sceneZ-partZ)/_RimSize),_Rimfalloff) > 0.5 ?  (1.0-(1.0-2.0*(pow(saturate((sceneZ-partZ)/_RimSize),_Rimfalloff)-0.5))*(1.0-(node_1028.b*node_6468.b))) : (2.0*pow(saturate((sceneZ-partZ)/_RimSize),_Rimfalloff)*(node_1028.b*node_6468.b))) );
-                float node_3646 = (1.0 - pow((1.0-max(0,dot(i.normalDir, viewDirection))),12.0));
-                float3 node_5570 = lerp(_LightColor0.rgb,lerp(_RimColor.rgb,_WaterColor.rgb,node_8987),node_3646);
+                float3 node_5570 = lerp(_RimColor.rgb,_WaterColor.rgb,node_8987);
                 float node_4175 = saturate((sceneZ-partZ)/_Depth);
                 float2 node_2371 = ((node_5510*0.25)+(node_3981*_FlowSpeed)*float2(0,1));
                 float4 _node_1611 = tex2D(_Shadermap,node_2371);
@@ -206,9 +203,8 @@ Shader "FAE/Water" {
                 float3 specular = (directSpecular + indirectSpecular);
 /////// Diffuse:
                 NdotL = dot( normalDirection, lightDirection );
-                float3 w = float3(node_3646,node_3646,node_3646)*0.5; // Light wrapping
-                float3 NdotLWrap = NdotL * ( 1.0 - w );
-                float3 forwardLight = max(float3(0.0,0.0,0.0), NdotLWrap + w );
+                float3 NdotLWrap = NdotL * ( 1.0 );
+                float3 forwardLight = max(float3(0.0,0.0,0.0), NdotLWrap);
                 NdotL = max(0.0,dot( normalDirection, lightDirection ));
                 half fd90 = 0.5 + 2 * LdotH * LdotH * (1-gloss);
                 float nlPow5 = Pow5(1-NdotLWrap);
@@ -216,7 +212,7 @@ Shader "FAE/Water" {
                 float3 directDiffuse = (forwardLight + ((1 +(fd90 - 1)*nlPow5) * (1 + (fd90 - 1)*nvPow5) * NdotL)) * attenColor;
                 float3 indirectDiffuse = float3(0,0,0);
                 indirectDiffuse += UNITY_LIGHTMODEL_AMBIENT.rgb; // Ambient Light
-                indirectDiffuse += texCUBE(_Reflection,viewReflectDirection).rgb; // Diffuse Ambient Light
+                //indirectDiffuse += UNITY_SAMPLE_TEXCUBE(unity_SpecCube0, viewReflectDirection).rgb * 0.0; // Diffuse Ambient Light
                 float3 diffuse = (directDiffuse + indirectDiffuse) * diffuseColor;
 /// Final Color:
                 float3 finalColor = diffuse + specular;
@@ -227,5 +223,5 @@ Shader "FAE/Water" {
             ENDCG
         }
     }
-    FallBack "Diffuse"
+    //FallBack "Diffuse"
 }

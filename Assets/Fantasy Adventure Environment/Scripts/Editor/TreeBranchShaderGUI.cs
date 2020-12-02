@@ -44,23 +44,36 @@ namespace FAE
 
         GUIContent mainTexName = new GUIContent("Diffuse", "Diffuse (RGB) and Transparency (A)");
         GUIContent normalMapName = new GUIContent("Normal Map");
+        private Material targetMat;
+        
         private bool visualizeVectors;
 
         public override void OnGUI(MaterialEditor materialEditor, MaterialProperty[] props)
         {
             if (windController == null) LocateWindController();
-            this.FindProperties(props);
 
             //Receive
             visualizeVectors = WindController._visualizeVectors;
 
             this.m_MaterialEditor = materialEditor;
-
+            targetMat = (Material)materialEditor.target;
+            
+            this.FindProperties(props);
+            
             //Style similar to Standard shader
             m_MaterialEditor.SetDefaultGUIWidths();
             m_MaterialEditor.UseDefaultMargins();
             EditorGUIUtility.labelWidth = 0f;
 
+#if UNITY_2019_3_OR_NEWER
+            if (UnityEngine.Rendering.GraphicsSettings.currentRenderPipeline != null &&
+                !targetMat.shader.name.Contains("Universal Render Pipeline"))
+            {
+                EditorGUILayout.HelpBox("A render pipeline is in use, but this material is using a shader for the Built-in render pipeline.\n\nShaders and materials can be converted through the Help window", MessageType.Error);
+                EditorGUILayout.Space();
+            }
+#endif
+            
             EditorGUI.BeginChangeCheck();
 
             //Draw fields
@@ -102,7 +115,7 @@ namespace FAE
             EditorGUILayout.EndHorizontal();
 
             this.m_MaterialEditor.TexturePropertySingleLine(mainTexName, this._MainTex, this._Color);
-            this.m_MaterialEditor.TexturePropertySingleLine(normalMapName, this._BumpMap);
+            if(targetMat.HasProperty("_BumpMap")) this.m_MaterialEditor.TexturePropertySingleLine(normalMapName, this._BumpMap);
 
             EditorGUILayout.Space();
         }
@@ -146,8 +159,15 @@ namespace FAE
                 EditorGUI.BeginDisabledGroup(false);
 #endif
 
-
+#if UNITY_2019_3_OR_NEWER
+            if (UnityEngine.Rendering.GraphicsSettings.currentRenderPipeline == null)
+            {
+#endif
             visualizeVectors = EditorGUILayout.Toggle("Visualize wind", visualizeVectors);
+#if UNITY_2019_3_OR_NEWER
+            }
+#endif
+
             if (showHelpAnimation) EditorGUILayout.HelpBox("Toggle a visualisation of the wind vectors on all the objects that use FAE shaders featuring wind.\n\nThis allows you to more clearly see the effects of the settings.", MessageType.None);
 
             m_MaterialEditor.ShaderProperty(_UseSpeedTreeWind, new GUIContent("Sample SpeedTree wind"));
@@ -189,7 +209,7 @@ namespace FAE
             //Main maps
             _Color = FindProperty("_Color", props);
             _MainTex = FindProperty("_MainTex", props);
-            _BumpMap = FindProperty("_BumpMap", props);
+            if(targetMat.HasProperty("_BumpMap")) _BumpMap = FindProperty("_BumpMap", props);
 
             //Color
             _HueVariation = FindProperty("_HueVariation", props);

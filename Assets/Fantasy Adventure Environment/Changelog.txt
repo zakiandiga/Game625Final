@@ -1,3 +1,22 @@
+1.5.3
+Minimum supported version is now Unity 2018.4.0. URP now requires v7.4.1 (available since Unity 2019.3.7f1)
+
+Added:
+- Added terrain layers (part of auto upgrade in 2018.3)
+- (URP) LOD crossfading support for vegetation shaders (already enabled by default on all prefabs)
+- (URP) Foliage bending functionality to Foliage shader
+
+Changed:
+- Assuming Linear color space by default, colors have been adjusted to fit
+- (URP) Greatly improved translucency for Foliage shader
+- Particle effects now use the Standard particle shader (this also supports camera fading)
+- Normal map inputs on cliff shaders are now correctly marked as such
+- (URP) Vegetation shaders now use the same material UI as in the built-in RP
+- URP material conversion now forces shaders to re-import after completion, as a workaround for Shader Graphs import issues.
+
+Fixed:
+- Foliage bender now pushes grass/foliage away in the correct direction, regardless of the rotation of a mesh.
+
 1.5.2
 
 Added:

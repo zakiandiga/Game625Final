@@ -23,6 +23,7 @@ namespace FAE
         MaterialProperty _Smoothness;
 
         MaterialEditor m_MaterialEditor;
+        private Material targetMat;
 
         //Meta
         bool showHelp;
@@ -32,15 +33,25 @@ namespace FAE
 
         public override void OnGUI(MaterialEditor materialEditor, MaterialProperty[] props)
         {
-            this.FindProperties(props);
-
             this.m_MaterialEditor = materialEditor;
-
+            targetMat = materialEditor.target as Material;
+            
+            this.FindProperties(props);
+            
             //Style similar to Standard shader
             m_MaterialEditor.SetDefaultGUIWidths();
             m_MaterialEditor.UseDefaultMargins();
             EditorGUIUtility.labelWidth = 0f;
 
+#if UNITY_2019_3_OR_NEWER
+            if (UnityEngine.Rendering.GraphicsSettings.currentRenderPipeline != null &&
+                !targetMat.shader.name.Contains("Universal Render Pipeline"))
+            {
+                EditorGUILayout.HelpBox("A render pipeline is in use, but this material is using a shader for the Built-in render pipeline.\n\nShaders and materials can be converted through the Help window", MessageType.Error);
+                EditorGUILayout.Space();
+            }
+#endif
+            
             EditorGUI.BeginChangeCheck();
 
             //Draw fields

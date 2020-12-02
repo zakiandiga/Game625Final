@@ -87,10 +87,10 @@ namespace PWCommon2
             AvailableLanguages = availableLanguages;
 
             // Links
-            TutorialsLink = "http://www.procedural-worlds.com/" + NameSpace.ToLower() + "/?section=tutorials";
-            DiscordLink = "https://discord.gg/rtKn8rw";
+            TutorialsLink = "https://www.procedural-worlds.com/support/tutorials/";
+            DiscordLink = "https://discord.gg/TggjQNN";
             SupportLink = "https://proceduralworlds.freshdesk.com/support/home";
-            ASLink = "https://www.assetstore.unity3d.com/en/#!/search/page=1/sortby=popularity/query=publisher:15277";
+            ASLink = "https://assetstore.unity.com/publishers/15277";
 
             // Remote settings
             NewsURLStripped = "http://www.procedural-worlds.com/gaiajson.php";

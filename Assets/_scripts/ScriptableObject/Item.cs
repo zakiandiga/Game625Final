@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Item", menuName = "Inventory/Item")]
-public class Item : ScriptableObject
+public abstract class Item : ScriptableObject 
+    //Should make this abstract instead?
+    //Item exist in player data and UI (soul of ItemPick)
 {
     new public string name = "NewItem";
     public Sprite icon;
-    public ItemType itemType; //should I describe it here or in Interactable?
+    public ItemType itemType;
 
     public enum ItemType
     {
@@ -17,21 +18,17 @@ public class Item : ScriptableObject
         Tool,
         Consumable
     }
+    //Should I seperate consumable and equipable items abstract class?
 
-    public void Use() //can we store this in scriptable object?
+    public virtual void Use() //public because is used in InventorySlot
     {
         //use effect (consume, nothing, equip, open craft menu, etc)
         //Can we make different implementations based on ItemType here?
 
-        if(itemType == ItemType.Consumable)
-        {
-            //Consume the item
-        }
-        else
-        {
-            Debug.Log("Using " + name);
-        }
-        
+        //Is it better to seperate the scriptable objects of different ItemTypes?  
+        Debug.Log("Using item " + name);
     }
 }
-    
+
+//References: https://answers.unity.com/questions/1415831/inheritance-from-a-scriptableobject.html#:~:text=First%20thing%2C%20no%2C%20you%20can,the%20transitivity%20property%20of%20inheritance.
+

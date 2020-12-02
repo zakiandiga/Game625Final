@@ -114,7 +114,7 @@ namespace FAE
 
 #if !UNITY_2019_3_OR_NEWER
 
-            EditorGUILayout.HelpBox("Universal Render Pipeline support requires Unity 2019.3f6 or newer", MessageType.Info);
+            EditorGUILayout.HelpBox("Universal Render Pipeline support requires Unity 2019.3.7f1 or newer", MessageType.Info);
 #else
             if (UnityEngine.Rendering.GraphicsSettings.renderPipelineAsset == null)
             {

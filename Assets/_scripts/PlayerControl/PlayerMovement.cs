@@ -10,7 +10,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private InputActionReference movementControl;
     [SerializeField] private InputActionReference jumpControl;
     [SerializeField] private InputActionReference crouchControl;
+    [SerializeField] private InputActionReference interactControl;
     [SerializeField] private InputActionReference openMenu;
+    
 
     [SerializeField] private float playerSpeed = 2.0f;
     [SerializeField] private float jumpHeight = 1.0f;
@@ -26,10 +28,13 @@ public class PlayerMovement : MonoBehaviour
     public GameObject cinemachineLock;
     private CinemachineVirtualCamera playerLockCam;
 
+    private Animator anim;
+
     public bool isLocking = false;
     bool onMenu = false;  //move to state
 
     public static event Action<PlayerMovement> OnOpenMenu; //Broadcast player opening menu
+    public static event Action<PlayerMovement> OnInteract;
 
     #region PlayerState
 
@@ -62,6 +67,7 @@ public class PlayerMovement : MonoBehaviour
         jumpControl.action.Enable();     //Utilize this to activate/deactivate player control
         crouchControl.action.Enable();   //Instead of SetActive the component
         openMenu.action.Enable();
+        interactControl.action.Enable();
     }
 
     private void OnDisable()
@@ -70,9 +76,10 @@ public class PlayerMovement : MonoBehaviour
         jumpControl.action.Disable();
         crouchControl.action.Disable();
         openMenu.action.Disable();
+        interactControl.action.Disable();
     }
 
-    private void DisablingMovement()
+    private void DisablingMovement()  //when opening UI
     {
         movementControl.action.Disable();
         jumpControl.action.Disable();
@@ -89,6 +96,7 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         controller = GetComponent<CharacterController>();
+        anim = GetComponentInChildren<Animator>();
         cam = Camera.main.transform;
         playerLockCam = cinemachineLock.GetComponent<CinemachineVirtualCamera>();
     }
@@ -128,21 +136,25 @@ public class PlayerMovement : MonoBehaviour
 
         //if !isGrounded, don't read
         Vector2 movement = movementControl.action.ReadValue<Vector2>();
+
+        #region Movement Animation
+        //Animator handler
+        if (movement != Vector2.zero)
+        {
+            anim.SetBool("run", true);
+        }
+        if(movement == Vector2.zero)
+        {
+            anim.SetBool("run", false);
+        }
+        #endregion
+
         Vector3 move = new Vector3(movement.x, 0, movement.y);
         move = cam.forward * move.z + cam.right * move.x;
                     
         move.y = 0f;
         controller.Move(move * Time.deltaTime * playerSpeed);
 
-        #region DefaultFaceDir
-        /*
-        if (move != Vector3.zero)  //Player face direction
-        {
-            
-            gameObject.transform.forward = move;
-        }
-        */
-        #endregion
 
         #region FaceDirection
         
@@ -193,6 +205,11 @@ public class PlayerMovement : MonoBehaviour
                 onMenu = false;
             }
             Debug.Log("Opening Menu!!");
+        }
+
+        if(interactControl.action.triggered)
+        {
+            OnInteract?.Invoke(this);
         }
         
     }

@@ -10,7 +10,9 @@ using UnityEditor;
 #if VEGETATION_STUDIO || VEGETATION_STUDIO_PRO
 using AwesomeTechnologies;
 using AwesomeTechnologies.VegetationStudio;
-using AwesomeTechnologies.VegetationSystem;
+#endif
+#if VEGETATION_STUDIO_PRO
+using AwesomeTechnologies.VegetationSystem; 
 #endif
 
 namespace GeNa
@@ -3486,27 +3488,34 @@ namespace GeNa
                         {
                             if (!string.IsNullOrEmpty(res.m_assetID))
                             {
-                                Debug.Log(res.m_assetID);
-                                res.m_avsID = VegetationStudioManager.GetVegetationItemID(res.m_assetID);
                                 if (string.IsNullOrEmpty(res.m_avsID))
                                 {
-                                    res.m_avsID = VegetationStudioManager.AddVegetationItem(res.m_prefab, (VegetationType)res.m_avsVegetationType, false);
-                                    Debug.Log("Added object " + res.m_avsID);
+                                    res.m_avsID = VegetationStudioManager.GetVegetationItemID(res.m_assetID);
+                                    if (string.IsNullOrEmpty(res.m_avsID))
+                                    {
+                                        res.m_avsID = VegetationStudioManager.AddVegetationItem(res.m_prefab, (VegetationType)res.m_avsVegetationType, false);
+                                        Debug.LogFormat("[GeNa] Vegetation Studio ID('{0}') for resource '{1}'.", res.m_avsID, res.m_name);
+                                    }
                                 }
+
                                 if (!string.IsNullOrEmpty(res.m_avsID))
                                 {
-                                    VegetationStudioManager.AddVegetationItemInstance(res.m_avsID, go.transform.position,
-                                        go.transform.localScale, go.transform.rotation, true, (byte)11, 1f, true);
-                                    Debug.Log("Spawned object " + res.m_avsID);
+#if VEGETATION_STUDIO_PRO
+                                    VegetationStudioManager.AddVegetationItemInstance(res.m_avsID, go.transform.position, go.transform.localScale, 
+                                        go.transform.rotation, true, (byte)11, 1f, true);
+#else
+                                    VegetationStudioManager.AddVegetationItemInstance(res.m_avsID, go.transform.position, go.transform.localScale, 
+                                        go.transform.rotation, true, (byte)11, true);
+#endif
                                 }
                                 else
                                 {
-                                    Debug.Log("VS having a moment");
+                                    Debug.LogErrorFormat("[GeNa] Vegetation Studio error: Did not receive the Vegetation Item ID for resource '{0}'.", res.m_name);
                                 }
                             }
                             else
                             {
-                                Debug.Log("Asset ID missing");
+                                Debug.LogWarningFormat("[GeNa] Asset ID missing for resource '{0}'.", res.m_name);
                             }
                         }
 #endif
@@ -3635,7 +3644,7 @@ namespace GeNa
             if (res.ExtensionInstances == null)
             {
                 // This should never be null since in Resource.Initialise() it's instantiated with at least an empty list
-                Debug.LogErrorFormat("[GeNa] Extension instances is null for Resource '{0}' -> '{1}'", name, res.m_name);
+                //Debug.LogErrorFormat("[GeNa] Extension instances is null for Resource '{0}' -> '{1}'", name, res.m_name);
                 return;
             }
 

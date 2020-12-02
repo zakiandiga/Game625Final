@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public abstract class Interactable : MonoBehaviour
 {
@@ -9,10 +10,17 @@ public abstract class Interactable : MonoBehaviour
     //Assign another object if specific point of transform needed (e.g. treasure chest face, car cockpit, etc)
     
     [SerializeField] Transform player;
+    [SerializeField] GameObject itemSign;
 
     bool isFocus = false;
     bool hasInteracted = false;
+    bool canInteract = false;
 
+    public void InteractCheck(PlayerMovement player)
+    {
+        if (canInteract)
+            Interact();
+    }
 
     public virtual void Interact()
     {
@@ -23,23 +31,48 @@ public abstract class Interactable : MonoBehaviour
         //On player, add pickup item state, set space to pick item, announce item pick
         //here, OnItemPick Announce, if isFocus, destroy, add to inventory
     }
+    //how to handle stacked interactible?
 
-    public void OnFocused(Transform playerTransform) //Use this function to tell player that this item is currently interactable;
+    private void Awake() //or OnEnable()
     {
-        isFocus = true;
-        player = playerTransform;
+        itemSign = transform.Find("ItemSign").gameObject;
+        player = GameObject.Find("Player").transform;
     }
 
-    public void OnDefocused()
+    private void OnEnable()
     {
-        isFocus = false;
-        player = null;
+        PlayerMovement.OnInteract += InteractCheck;
     }
 
+    private void OnDisable()
+    {
+        PlayerMovement.OnInteract -= InteractCheck;
+    }
+
+    private void OnTriggerEnter(Collider col)  //which is better? collider or calculate distance on Update()?
+    {
+        if(col.gameObject.tag == "Player" && !hasInteracted)
+        {
+            Debug.Log("Player TRIGGERED");
+            canInteract = true;
+            itemSign.SetActive(true);
+        }
+    }
+
+    private void OnTriggerExit(Collider col)
+    {
+        if (col.gameObject.tag == "Player" && !hasInteracted)
+        {
+            Debug.Log("Player UNTRIGGERED");
+            canInteract = false;
+            itemSign.SetActive(false);
+        }
+            
+    }
 
     private void OnDrawGizmosSelected()
     {
-        if(interactionTransform == null)
+        if (interactionTransform == null)
         {
             interactionTransform = transform;
         }
@@ -47,6 +80,7 @@ public abstract class Interactable : MonoBehaviour
         Gizmos.DrawWireSphere(interactionTransform.position, radius);
     }
 
+    /*
     private void Update()
     {
         if(!hasInteracted)
@@ -54,13 +88,16 @@ public abstract class Interactable : MonoBehaviour
             float distance = Vector3.Distance(player.position, interactionTransform.position);
             if(distance <= radius)
             {
-                Debug.Log(transform.name + " interact with player");
+                Debug.Log(transform.name + " can interact with player");
                 Interact();
                 hasInteracted = true;
+
+
                 
             }
         }
 
     }
+    */
 
 }

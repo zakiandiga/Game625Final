@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf0b22f014ec7be40896c70f04417587, type: 3}
   m_Name: GaiaSettings
   m_EditorClassIdentifier: 
-  m_currentController: 5
+  m_currentController: 1
   m_customPlayerObject: {fileID: 0}
   m_customPlayerCamera: {fileID: 0}
-  m_currentSize: 1
+  m_currentSize: 2
   m_currentEnvironment: 2
   m_currentRenderer: 0
   m_currentDefaults: {fileID: 11400000, guid: 54f4fac3c7f0a1e44a45853d26c87b49, type: 2}
@@ -24,7 +24,7 @@ MonoBehaviour:
   m_createTerrainScenes: 0
   m_unloadTerrainScenes: 0
   m_floatingPointFix: 0
-  m_targeSizePreset: 1
+  m_targeSizePreset: 2
   m_defaultStampSpawnSettings: {fileID: 11400000, guid: 81b0e93a964e9804c9806f8bde6ba9ec,
     type: 2}
   m_defaultBiomeMaskSettings: {fileID: 0}
