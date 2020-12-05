@@ -32,3 +32,4 @@ public abstract class Item : ScriptableObject
 
 //References: https://answers.unity.com/questions/1415831/inheritance-from-a-scriptableobject.html#:~:text=First%20thing%2C%20no%2C%20you%20can,the%20transitivity%20property%20of%20inheritance.
 
+//Ref: https://www.youtube.com/watch?v=OhesZyHXew4

@@ -27,8 +27,29 @@ public class InventorySlot : MonoBehaviour
         removeButton.interactable = false;
     }
 
-    public void OnRemoveButton()  //UI Button triggered
+    /*
+     * ITEM CONTROL
+     * A: Use
+     * B: Drop
+     * X: Detail 
+     * 
+     */
+
+    public void DetailItem()
     {
+        //Open/Close tooltip window
+        //Reference Tooltip window here, SetActive control here
+        //Tooltip window is a part of InventorySlot control
+        Debug.Log("Item description opened");
+    }
+
+    public void DropItem()  //UI Button triggered
+    {
+        //Open Confirm window
+        //reference confirm window here
+        //c
+        //Instantiate item in world
+
         Inventory.instance.RemoveItem(item);
     }
 
@@ -38,5 +59,12 @@ public class InventorySlot : MonoBehaviour
         {
             item.Use();
         }
+
+        //Temporary for golem assembly demo
+        //add item to assembling UI & logic
+        AssemblingLogic.instance.AddPart(item);
+
+
+        ClearSlot();
     }
 }

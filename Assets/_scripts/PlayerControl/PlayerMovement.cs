@@ -7,12 +7,14 @@ using Cinemachine;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : MonoBehaviour
 {
+
+    #region InputActionReference
     [SerializeField] private InputActionReference movementControl;
     [SerializeField] private InputActionReference jumpControl;
     [SerializeField] private InputActionReference crouchControl;
     [SerializeField] private InputActionReference interactControl;
     [SerializeField] private InputActionReference openMenu;
-    
+    #endregion
 
     [SerializeField] private float playerSpeed = 2.0f;
     [SerializeField] private float jumpHeight = 1.0f;
@@ -26,6 +28,7 @@ public class PlayerMovement : MonoBehaviour
 
     private Transform cam;
     public GameObject cinemachineLock;
+    public CinemachineVirtualCamera directObjCam;
     private CinemachineVirtualCamera playerLockCam;
 
     private Animator anim;
@@ -33,8 +36,10 @@ public class PlayerMovement : MonoBehaviour
     public bool isLocking = false;
     bool onMenu = false;  //move to state
 
-    public static event Action<PlayerMovement> OnOpenMenu; //Broadcast player opening menu
+    #region ActionAnnouncer
+    public static event Action<PlayerMovement> OnOpenMenu; 
     public static event Action<PlayerMovement> OnInteract;
+    #endregion
 
     #region PlayerState
 
@@ -54,12 +59,13 @@ public class PlayerMovement : MonoBehaviour
     public enum CameraMode
     {
         Free,
-        LockOn
+        LockOn,
+        Cutscene,
+        OnObject
     }
 
     private CameraMode cameraMode = CameraMode.Free;
     #endregion
-
 
     private void OnEnable()
     {
@@ -99,25 +105,28 @@ public class PlayerMovement : MonoBehaviour
         anim = GetComponentInChildren<Animator>();
         cam = Camera.main.transform;
         playerLockCam = cinemachineLock.GetComponent<CinemachineVirtualCamera>();
+        InventoryUI.OnAssembling += AssemblingControl;
     }
 
     private void CameraLock()
-    {       
-
-        if (!isLocking)
+    {        
+        if(!isLocking)
         {
-            playerLockCam.m_Priority = 11;
-            cameraMode = CameraMode.LockOn;
             isLocking = true;
+            playerLockCam.m_Priority = 11;
         }
         else
         {
-            playerLockCam.m_Priority = 0;
-            cameraMode = CameraMode.Free;
             isLocking = false;
+            playerLockCam.m_Priority = 0;
         }
 
+    }
 
+    private void AssemblingControl(InventoryUI ui)
+    {
+        directObjCam.m_Priority = 11;
+        
     }
 
     void Update()
@@ -187,24 +196,32 @@ public class PlayerMovement : MonoBehaviour
 
         if(crouchControl.action.triggered)
         {
-            CameraLock();            
-        }
-
-        
-        if(openMenu.action.triggered)
-        {
-            OnOpenMenu?.Invoke(this);
-            if (!onMenu)
-            {
-                DisablingMovement();
-                onMenu = true;
-            }
+            /*
+            if (cameraMode != CameraMode.Free)
+                cameraMode = CameraMode.LockOn;
             else
             {
+                cameraMode = CameraMode.Free;
+            }
+            */
+
+            CameraLock();
+            Debug.Log("CROUCH");
+        }
+
+
+        if (openMenu.action.triggered)
+        {
+            OnOpenMenu?.Invoke(this);
+            if(onMenu)
+            {
                 EnablingMovement();
+            }
+            else 
+            {
+                DisablingMovement();
                 onMenu = false;
             }
-            Debug.Log("Opening Menu!!");
         }
 
         if(interactControl.action.triggered)

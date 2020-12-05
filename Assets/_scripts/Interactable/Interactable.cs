@@ -11,10 +11,27 @@ public abstract class Interactable : MonoBehaviour
     
     [SerializeField] Transform player;
     [SerializeField] GameObject itemSign;
+    TempInteractable tempInteractable;
 
     bool isFocus = false;
     bool hasInteracted = false;
     bool canInteract = false;
+
+    private void Awake() //or OnEnable()
+    {
+        itemSign = transform.Find("ItemSign").gameObject;
+        player = GameObject.Find("Player").transform;
+    }
+
+    private void OnEnable()
+    {
+        PlayerMovement.OnInteract += InteractCheck;
+    }
+
+    private void OnDisable()
+    {
+        PlayerMovement.OnInteract -= InteractCheck;
+    }
 
     public void InteractCheck(PlayerMovement player)
     {
@@ -33,21 +50,7 @@ public abstract class Interactable : MonoBehaviour
     }
     //how to handle stacked interactible?
 
-    private void Awake() //or OnEnable()
-    {
-        itemSign = transform.Find("ItemSign").gameObject;
-        player = GameObject.Find("Player").transform;
-    }
 
-    private void OnEnable()
-    {
-        PlayerMovement.OnInteract += InteractCheck;
-    }
-
-    private void OnDisable()
-    {
-        PlayerMovement.OnInteract -= InteractCheck;
-    }
 
     private void OnTriggerEnter(Collider col)  //which is better? collider or calculate distance on Update()?
     {
@@ -55,6 +58,12 @@ public abstract class Interactable : MonoBehaviour
         {
             Debug.Log("Player TRIGGERED");
             canInteract = true;
+
+            //Put the object on this class on the player so that the player only can interact with one interactable
+            //if (col.gameObject.GetComponent<SomePlayerclass>().currentObjectPlayerInteractsWith == null)
+            //    col.gameObject.GetComponent<SomePlayerclass>().currentObjectPlayerInteractsWith = this; 
+            //check the distance on OnTriggerStay to prioritize who can interact with the player
+
             itemSign.SetActive(true);
         }
     }
@@ -65,6 +74,7 @@ public abstract class Interactable : MonoBehaviour
         {
             Debug.Log("Player UNTRIGGERED");
             canInteract = false;
+            //col.gameObject.GetComponent<SomePlayerclass>().currentObjectPlayerInteractsWith = null;
             itemSign.SetActive(false);
         }
             

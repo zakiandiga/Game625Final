@@ -54,11 +54,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalLayer0:
-        m_Texture: {fileID: 2800000, guid: bde6cb2e213a1a84a9a579bfd2ac765e, type: 3}
+        m_Texture: {fileID: 2800000, guid: 1aebbb812b32bde4b8eb211cdcaa87d6, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalLayer1:
-        m_Texture: {fileID: 2800000, guid: ba8b90b254eca554697a571d28aa6b1c, type: 3}
+        m_Texture: {fileID: 2800000, guid: 2b558bab7c9a3284191fc5fdff992601, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalLayer2:
@@ -70,7 +70,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _WaterDepthRamp:
-        m_Texture: {fileID: 2800000, guid: 963c350b718c6414e96f8c5692f060b1, type: 3}
+        m_Texture: {fileID: 2800000, guid: a6579f1ba5aa4f7458912c2c0d40235d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
@@ -79,24 +79,24 @@ Material:
     - _EdgeWaterDist: 5
     - _FadeDistance: 4096
     - _FadeStart: 128
-    - _FoamDepth: 6
+    - _FoamDepth: 3.8
     - _FoamDistance: 0.112
     - _FoamStrength: 2
     - _FoamTexTile: 256
     - _Glossiness: 0.5
-    - _Metallic: 0.2
+    - _Metallic: 0.235
     - _NormalFadeDistance: 300
     - _NormalFadeStart: 50
-    - _NormalLayer0: 0.5
-    - _NormalLayer0Scale: 0.4
-    - _NormalLayer1: 0.7
-    - _NormalLayer1Scale: 0.6
-    - _NormalLayer2Scale: 0.4
+    - _NormalLayer0: 1.36
+    - _NormalLayer0Scale: 1.34
+    - _NormalLayer1: 0.5
+    - _NormalLayer1Scale: 0.69
+    - _NormalLayer2Scale: 0.42
     - _NormalMoveScale: 0.0003
     - _NormalMoveSpeed: 0.01
     - _NormalTile: 512
     - _PW_DstBlend: 0
-    - _PW_MainLightIntensity: 2.8
+    - _PW_MainLightIntensity: 4.3
     - _PW_SSS: 1
     - _PW_SSSDistortion: 0.34
     - _PW_SSSPower: 1
@@ -105,9 +105,9 @@ Material:
     - _ReflectionStrength: 0.2
     - _RefractionToggle: 0
     - _RelfectionStrength: 1
-    - _Smoothness: 0.8
+    - _Smoothness: 0.804
     - _SrcBlend: 5
-    - _TransparentDepth: 0.1
+    - _TransparentDepth: 0.5
     - _TransparentDistance: 1
     - _TransparentMin: 0
     - _WaterTexTile: 64
@@ -122,13 +122,13 @@ Material:
     - _WaveShoreClamp: 0.33
     - _WaveShoreMove: 0.1
     - _WaveSize: 0.1
-    - _WaveSpeed: 12.5
+    - _WaveSpeed: 10
     - _WaveSteepness: 0.1
     m_Colors:
     - _AmbientColor: {r: 0.7027151, g: 0.88101596, b: 1.0016313, a: 1}
     - _Color: {r: 1, g: 0, b: 0, a: 0}
     - _ColorDeepWater: {r: 1, g: 1, b: 1, a: 1}
-    - _EdgeWaterColor: {r: 0.09999994, g: 0.09999994, b: 0.19999993, a: 1}
+    - _EdgeWaterColor: {r: 0.09861947, g: 0.09861947, b: 0.19857296, a: 1}
     - _MainLightColor: {r: 1.4, g: 1.1586648, b: 0.9971636, a: 1.4}
     - _MainLightDir: {r: -0, g: 0.70710677, b: 0.7071067, a: 0}
     - _MainLightFresnel: {r: 0.052643288, g: 0.0726428, b: 0.122641504, a: 1}

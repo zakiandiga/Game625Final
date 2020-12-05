@@ -8,12 +8,13 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: PW_Stone_01_Moss
-  m_Shader: {fileID: 4800000, guid: 676d51a93fad6434bb7ee1f64ad89551, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 896c4566c534d544085eac02e8d305d9,
+    type: 3}
   m_ShaderKeywords: _PW_SF_COVER_ON _PW_SF_GLOBAL_CONTROL_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 2000
+  m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
@@ -84,11 +85,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _PW_CoverLayer0:
-        m_Texture: {fileID: 2800000, guid: 6a6ace4d78d236f48a99b5b669cc9bd3, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _PW_CoverLayer0Normal:
-        m_Texture: {fileID: 2800000, guid: faa43fb78fd48ab4f9efe499e74a815e, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _PW_CoverLayer1:
@@ -100,7 +101,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _PW_WorldMap:
-        m_Texture: {fileID: 2800000, guid: c29d33c252dcecd4390d50d0ad00c6ff, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
@@ -136,6 +137,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - _ALPHATEST: 0
     - _AOPower: 1
     - _AOPowerExp: 1
     - _AOScale: 1
@@ -256,13 +258,21 @@ Material:
     - _PW_CoverLayer1Wrap: 0
     - _PW_CoverWorldUVScale: 2048
     - _PW_GlobalControl: 1
+    - _PW_Global_Metallic: 0
     - _PW_Global_SeasonalTintAmount: 0
+    - _PW_Global_Smoothness: 0
+    - _PW_SF_COVER: 0
+    - _PW_SF_SSS: 0
+    - _PW_SF_WIND: 0
+    - _PW_SF_WORLDMAP: 0
     - _PW_SSS: 0
     - _PW_SSSDistortion: 0.5
     - _PW_SSSPower: 1
+    - _PW_SSS_1: 0
     - _PW_SeasonalTintAmount: 0
     - _PW_ShaderMode: 0
     - _PW_TerrainSizeX: 2048
+    - _PW_TerrainSizeY: 0
     - _PW_TerrainSizeZ: 2048
     - _PW_WindFrequency: 16
     - _PW_WindGustDistance: 1.4

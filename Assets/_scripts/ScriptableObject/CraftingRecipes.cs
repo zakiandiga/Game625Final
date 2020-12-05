@@ -20,6 +20,10 @@ public class CraftingRecipes : ScriptableObject
 
     public List<Item> requiredMaterials;
     public List<Item> requiredTools;
+
+    public Item craftResult;
 }
 
 // reference link: https://www.youtube.com/watch?v=bTPEMt1RG3s
+// How to blindly combine stuff?
+// put items from inventory to crafting slot, then if it match with a recipe, call it
