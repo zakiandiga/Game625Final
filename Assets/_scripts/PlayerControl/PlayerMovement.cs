@@ -7,7 +7,6 @@ using Cinemachine;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : MonoBehaviour
 {
-
     #region InputActionReference
     [SerializeField] private InputActionReference movementControl;
     [SerializeField] private InputActionReference jumpControl;
@@ -16,25 +15,38 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private InputActionReference openMenu;
     #endregion
 
-    [SerializeField] private float playerSpeed = 2.0f;
-    [SerializeField] private float jumpHeight = 1.0f;
-    [SerializeField] private float gravityValue = -9.81f; //same as unity physics value
-
-    [SerializeField] private float rotationSpeed = 4f;
-
-    private CharacterController controller;    
-    private Vector3 playerVelocity;
+    #region MovementVariables
+    public Transform groundChecker;
+    public float groundCheckerRadius = 0.4f;
+    public LayerMask groundMask;
     private bool groundedPlayer;
 
+    [SerializeField] private float playerSpeed = 2.0f;
+    [SerializeField] private float jumpHeight = 1.0f;
+    [SerializeField] private float gravityValue = -100f; //-9.81f is the unity physics value
+    [SerializeField] private float rotationSpeed = 4f;
+    private float jumpConst = -3.0f;
+    private Vector3 playerVelocity;
+
+    private Vector2 movement;
+
+    #endregion
+
+    public ParticleSystem testExplode;
+
+    #region CameraComponent
     private Transform cam;
-    public GameObject cinemachineLock;
-    public CinemachineVirtualCamera directObjCam;
-    private CinemachineVirtualCamera playerLockCam;
+    //private GameObject cinemachineLock;
+    [SerializeField] private CinemachineVirtualCamera directObjCam;
+    [SerializeField] private CinemachineVirtualCamera playerLockCam;
+    [SerializeField] private CinemachineFreeLook playerFreeCam;
+    private CinemachineBrain cameraBrain;
+    #endregion
 
+    #region OtherRequiredComponent
+    private CharacterController controller;
     private Animator anim;
-
-    public bool isLocking = false;
-    bool onMenu = false;  //move to state
+    #endregion
 
     #region ActionAnnouncer
     public static event Action<PlayerMovement> OnOpenMenu; 
@@ -42,20 +54,20 @@ public class PlayerMovement : MonoBehaviour
     #endregion
 
     #region PlayerState
-
-    public enum PlayerState //Change the movement handling to state pattern later
+    private MovementState movementState = MovementState.Idle;
+    public enum MovementState 
     {
-        Talking,
-        OnGround,
-        OnAir,
-        OpeningMenu,
-
-    }
-
-    private PlayerState playerState = PlayerState.OnGround;
+        Move,
+        Crouch,
+        Idle,
+        Jump,
+        OnMenu,
+        OnCutscene
+    }    
     #endregion
 
     #region CameraMode
+    private CameraMode cameraMode = CameraMode.Free;
     public enum CameraMode
     {
         Free,
@@ -63,8 +75,6 @@ public class PlayerMovement : MonoBehaviour
         Cutscene,
         OnObject
     }
-
-    private CameraMode cameraMode = CameraMode.Free;
     #endregion
 
     private void OnEnable()
@@ -85,149 +95,221 @@ public class PlayerMovement : MonoBehaviour
         interactControl.action.Disable();
     }
 
+    private void Start()
+    {
+        controller = GetComponent<CharacterController>();        
+        anim = GetComponentInChildren<Animator>();
+        cam = Camera.main.transform;
+        cameraBrain = cam.GetComponent<CinemachineBrain>();
+        InventoryUI.OnAssembling += AssemblingControl;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
+
     private void DisablingMovement()  //when opening UI
     {
         movementControl.action.Disable();
         jumpControl.action.Disable();
         crouchControl.action.Disable();
+        interactControl.action.Disable();
+        //cameraBrain.enabled = false;
     }
 
     private void EnablingMovement()
     {
-        movementControl.action.Enable(); 
-        jumpControl.action.Enable();    
+        movementControl.action.Enable();
+        jumpControl.action.Enable();
         crouchControl.action.Enable();
+        interactControl.action.Enable();
+        //cameraBrain.enabled = true;
     }
 
-    private void Start()
+    private void CameraStateSwitch()
     {
-        controller = GetComponent<CharacterController>();
-        anim = GetComponentInChildren<Animator>();
-        cam = Camera.main.transform;
-        playerLockCam = cinemachineLock.GetComponent<CinemachineVirtualCamera>();
-        InventoryUI.OnAssembling += AssemblingControl;
+        switch(cameraMode)
+        {
+            case CameraMode.Free:
+                playerFreeCam.m_Priority = 1;
+                playerLockCam.m_Priority = 0;
+                directObjCam.m_Priority = 0;
+                break;
+            case CameraMode.LockOn:
+                playerLockCam.m_Priority = 1;
+                directObjCam.m_Priority = 0;
+                playerFreeCam.m_Priority = 0;
+                break;
+            case CameraMode.OnObject:
+                directObjCam.m_Priority = 1;
+                playerLockCam.m_Priority = 0;
+                playerFreeCam.m_Priority = 0;
+                break;
+
+
+        }
+
+        //Debug.Log("directCam " + directObjCam.m_Priority + " || lockCam " + playerLockCam.m_Priority + " || freeCam " + playerFreeCam.m_Priority);
     }
 
-    private void CameraLock()
-    {        
-        if(!isLocking)
+    private void MenuControlSwitch()
+    {
+        if(movementState == MovementState.OnMenu)
         {
-            isLocking = true;
-            playerLockCam.m_Priority = 11;
+            Cursor.lockState = CursorLockMode.Confined;
+            Cursor.visible = true;
+            DisablingMovement();
         }
-        else
+        else if(movementState != MovementState.OnMenu)
         {
-            isLocking = false;
-            playerLockCam.m_Priority = 0;
-        }
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            EnablingMovement();
 
+        }
     }
 
     private void AssemblingControl(InventoryUI ui)
     {
-        directObjCam.m_Priority = 11;
-        
+        if (cameraMode == CameraMode.OnObject)
+        {
+            cameraMode = CameraMode.Free;
+        }
+        else
+        {
+            cameraMode = CameraMode.OnObject;
+        }
+        CameraStateSwitch();       
     }
 
     void Update()
     {
-        
-        if (EventSystem.current.IsPointerOverGameObject())
-            return;
-        
+        #region Movement
 
-        groundedPlayer = controller.isGrounded;
-        if (controller.isGrounded && playerVelocity.y < 0)
-        {
-            playerVelocity.y = 0f;
+        //groundedPlayer = controller.isGrounded;
+        groundedPlayer = Physics.CheckSphere(groundChecker.position, groundCheckerRadius, groundMask);
+
+        if (groundedPlayer && playerVelocity.y < 0)
+        {            
+            playerVelocity.y = -2;
+            anim.SetFloat("vSpeed", 0);
+            anim.SetBool("jump", false);
         }
 
-
-        //if !isGrounded, don't read
-        Vector2 movement = movementControl.action.ReadValue<Vector2>();
-
-        #region Movement Animation
-        //Animator handler
+        movement = movementControl.action.ReadValue<Vector2>();
+                
+        #region MovementState
+        //MovementStateHandler
         if (movement != Vector2.zero)
         {
-            anim.SetBool("run", true);
+            if (movementState != MovementState.Move)
+            {
+                movementState = MovementState.Move;
+                anim.SetBool("run", true);
+                anim.SetFloat("forward", movement.y);
+                anim.SetFloat("right", movement.x);
+            }
         }
-        if(movement == Vector2.zero)
+        if(movement == Vector2.zero && movementState != MovementState.OnMenu)
         {
-            anim.SetBool("run", false);
+            if(movementState != MovementState.Idle)
+            {
+                movementState = MovementState.Idle;
+                anim.SetBool("run", false);                
+            }
+            
         }
         #endregion
 
-        Vector3 move = new Vector3(movement.x, 0, movement.y);
-        move = cam.forward * move.z + cam.right * move.x;
-                    
-        move.y = 0f;
-        controller.Move(move * Time.deltaTime * playerSpeed);
-
-
-        #region FaceDirection
+        Vector3 moveDirection = new Vector3(movement.x, 0, movement.y);
+        moveDirection = cam.forward * moveDirection.z + cam.right * moveDirection.x;                    
+        moveDirection.y = 0f;
+        controller.Move(moveDirection * Time.deltaTime * playerSpeed);
         
-        //Player face direction related to camera (Free Move Camera)
-        
-        if (movement != Vector2.zero && cameraMode == CameraMode.Free) 
-        {
-            float targetAngle = Mathf.Atan2(movement.x, movement.y) * Mathf.Rad2Deg + cam.eulerAngles.y;
-            Quaternion rotation = Quaternion.Euler(0f, targetAngle, 0f);
-            transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * rotationSpeed);
-        }
-
-        if (movement != Vector2.zero && cameraMode == CameraMode.LockOn)
-        {
-            float targetAngle = cam.eulerAngles.y;
-            Quaternion rotation = Quaternion.Euler(0f, targetAngle, 0f);
-            transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * rotationSpeed);
-        }
-
-        #endregion
-
-        // Changes the height position of the player..
+        // Changes the height position of the player.
         if (jumpControl.action.triggered && groundedPlayer)
-        {
-            playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
+        {            
+            playerVelocity.y += Mathf.Sqrt(jumpHeight * jumpConst * gravityValue);
+            //groundedPlayer = controller.isGrounded;
+            anim.SetBool("jump", true);
+            movementState = MovementState.Jump;
+
+            testExplode.Play();
+
         }
 
+        //Default gravity
         playerVelocity.y += gravityValue * Time.deltaTime;
+        anim.SetFloat("vSpeed", playerVelocity.y);
         controller.Move(playerVelocity * Time.deltaTime);
+        
 
-        if(crouchControl.action.triggered)
+        #region FaceDirection        
+        if (movementState == MovementState.Move) 
         {
-            /*
-            if (cameraMode != CameraMode.Free)
+            float targetAngle = 0f;
+            if (cameraMode == CameraMode.Free)
+            {
+                targetAngle = Mathf.Atan2(movement.x, movement.y) * Mathf.Rad2Deg + cam.eulerAngles.y;
+            }
+            else if (cameraMode == CameraMode.LockOn)
+            {
+                targetAngle = cam.eulerAngles.y;
+            }
+
+            Quaternion rotation = Quaternion.Euler(0f, targetAngle, 0f);
+            transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * rotationSpeed);
+        } 
+        #endregion
+
+        #region LockOn/Crouch
+        if (crouchControl.action.ReadValue<float>() != 0)
+        {
+            if(cameraMode != CameraMode.LockOn && cameraMode != CameraMode.OnObject)
+            {
                 cameraMode = CameraMode.LockOn;
-            else
+                anim.SetBool("walk", true);
+                CameraStateSwitch();
+            }               
+        }
+        if(crouchControl.action.ReadValue<float>() == 0)
+        {
+            if(cameraMode != CameraMode.Free && cameraMode != CameraMode.OnObject)
             {
                 cameraMode = CameraMode.Free;
-            }
-            */
-
-            CameraLock();
-            Debug.Log("CROUCH");
+                anim.SetBool("walk", false);
+                CameraStateSwitch();
+            }            
         }
+        #endregion
 
+        #endregion
 
         if (openMenu.action.triggered)
         {
             OnOpenMenu?.Invoke(this);
-            if(onMenu)
+            if(movementState != MovementState.OnMenu)
             {
-                EnablingMovement();
+                movementState = MovementState.OnMenu;
             }
-            else 
+            else
             {
-                DisablingMovement();
-                onMenu = false;
+                movementState = MovementState.Idle;
             }
+            MenuControlSwitch();
         }
 
         if(interactControl.action.triggered)
         {
             OnInteract?.Invoke(this);
         }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(groundChecker.position, groundCheckerRadius);
+    }
+    private void LateUpdate()
+    {
         
     }
 }
