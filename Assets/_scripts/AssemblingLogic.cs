@@ -61,10 +61,10 @@ public class AssemblingLogic : MonoBehaviour
         Invoke("InstantiateGolem", 0.3f);
         Debug.Log("Golem created!!");
 
-        foreach (Item part in parts)
-        {
-            parts.Remove(part);
-        }
+        //foreach (Item part in parts)
+        //{
+        //    parts.Remove(part);
+        //}
         assemblingButton.interactable = false;
     }
 
