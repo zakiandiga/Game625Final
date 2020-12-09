@@ -34,6 +34,8 @@ public class AssemblingLogic : MonoBehaviour
     public int assemblySlot = 3; //this should be specific per slot later
     public List<Item> parts = new List<Item>();
 
+    [SerializeField] ParticleSystem assembleParticle = null;
+
     public bool AddPart(Item part)
     {
 
@@ -55,20 +57,26 @@ public class AssemblingLogic : MonoBehaviour
 
     public void Assemble()
     {
+        assembleParticle.Play();
+        Invoke("InstantiateGolem", 0.3f);
+        Debug.Log("Golem created!!");
 
-        Instantiate(currentGolem.golemResult, spawnPoint.position , Quaternion.identity);
-
-        foreach (Item part in parts)
-        {
-            parts.Remove(part);
-        }
+        //foreach (Item part in parts)
+        //{
+        //    parts.Remove(part);
+        //}
         assemblingButton.interactable = false;
+    }
+
+    void InstantiateGolem()
+    {
+        Instantiate(currentGolem.golemResult, spawnPoint.position, Quaternion.identity);
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        //assemblingButton = GameObject.Find("AssemblingParent").GetComponentInChildren<Button>();
     }
 
     // Update is called once per frame

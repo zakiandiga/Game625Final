@@ -14,8 +14,8 @@ public abstract class Interactable : MonoBehaviour
     TempInteractable tempInteractable;
 
     bool isFocus = false;
-    bool hasInteracted = false;
-    bool canInteract = false;
+    public bool hasInteracted = false; //need to control from inherited script
+    public bool canInteract = false;
 
     private void Awake() //or OnEnable()
     {

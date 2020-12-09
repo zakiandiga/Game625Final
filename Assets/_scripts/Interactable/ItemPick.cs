@@ -5,13 +5,16 @@ using UnityEngine;
 public class ItemPick : Interactable
 {
     public Item item;
+    //private Pooler pool;
 
     //Item object exist in the world
+    private void Start()
+    {
+        //pool = transform.parent.GetComponent<Pooler>();
+    }
 
     public override void Interact()
     {
-        
-
         PickUp(); //Tell player to pick the item instead of directly PickUp()
     }
 
@@ -21,6 +24,12 @@ public class ItemPick : Interactable
         bool wasPickedUp = Inventory.instance.AddItem(item);
 
         if (wasPickedUp)
-            Destroy(this.gameObject);
+        //Destroy(this.gameObject);
+        {
+            MaterialPooler.Instance.ReturnToPool(this.gameObject);
+            canInteract = false;
+            hasInteracted = false;
+        }
+            
     }
 }

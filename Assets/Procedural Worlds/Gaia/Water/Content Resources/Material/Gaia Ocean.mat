@@ -58,7 +58,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalLayer1:
-        m_Texture: {fileID: 2800000, guid: 2b558bab7c9a3284191fc5fdff992601, type: 3}
+        m_Texture: {fileID: 2800000, guid: f401848fe31685c4f8646ae0829811a5, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalLayer2:
@@ -90,8 +90,8 @@ Material:
     - _NormalLayer0: 1.36
     - _NormalLayer0Scale: 1.34
     - _NormalLayer1: 0.5
-    - _NormalLayer1Scale: 0.69
-    - _NormalLayer2Scale: 0.42
+    - _NormalLayer1Scale: 0.59
+    - _NormalLayer2Scale: 0.32
     - _NormalMoveScale: 0.0003
     - _NormalMoveSpeed: 0.01
     - _NormalTile: 512
