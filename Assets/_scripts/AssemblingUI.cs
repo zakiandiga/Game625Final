@@ -19,9 +19,7 @@ public class AssemblingUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //assemblingParent = GameObject.Find("AssemblingParent").transform;
         blueprintSlots = assemblingParent.GetComponentsInChildren<BlueprintSlot>();
-        //assemblingMenu = assemblingParent.GetComponentInChildren<Button>();
     }
 
     void UpdateSlot()

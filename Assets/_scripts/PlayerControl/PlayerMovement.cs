@@ -32,7 +32,6 @@ public class PlayerMovement : MonoBehaviour
 
     #endregion
 
-    public ParticleSystem testExplode;
 
     #region CameraComponent
     private Transform cam;
@@ -143,8 +142,6 @@ public class PlayerMovement : MonoBehaviour
                 playerLockCam.m_Priority = 0;
                 playerFreeCam.m_Priority = 0;
                 break;
-
-
         }
 
         //Debug.Log("directCam " + directObjCam.m_Priority + " || lockCam " + playerLockCam.m_Priority + " || freeCam " + playerFreeCam.m_Priority);
@@ -231,9 +228,6 @@ public class PlayerMovement : MonoBehaviour
             //groundedPlayer = controller.isGrounded;
             anim.SetBool("jump", true);
             movementState = MovementState.Jump;
-
-            testExplode.Play();
-
         }
 
         //Default gravity
@@ -308,6 +302,7 @@ public class PlayerMovement : MonoBehaviour
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(groundChecker.position, groundCheckerRadius);
     }
+
     private void LateUpdate()
     {
         
