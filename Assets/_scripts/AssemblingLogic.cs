@@ -5,14 +5,6 @@ using UnityEngine.UI;
 
 public class AssemblingLogic : MonoBehaviour
 {
-    //var blueprintType
-    //Golem golem  // (scriptable object)
-
-    //List blueprintSlots
-    //List items submitted
-
-    //On item submitted, add item to the blueprint slot
-    //if blueprint slot is full, set active Assemble button
 
     public static AssemblingLogic instance;
 
@@ -28,18 +20,18 @@ public class AssemblingLogic : MonoBehaviour
 
     public Button assemblingButton;
 
-    public GolemBlueprint currentGolem;
+    public GolemBlueprint currentGolem; //Should be assigned when player choose it, from blueprint selection for example
     public Transform spawnPoint;
 
-    public int assemblySlot = 3; //this should be specific per slot later
+    public int assemblySlot = 3; //this should be specific according to the blueprints later
     public List<Item> parts = new List<Item>();
 
     [SerializeField] ParticleSystem assembleParticle = null;
 
-    public bool AddPart(Item part)
+    public bool AddPart(Item part)  //Check if all items already in the blueprint slots to activate the button
     {
 
-        parts.Add(part);
+        parts.Add(part);  //how to send this info to the UI?
 
         if (parts.Count >= assemblySlot)
         {
@@ -53,6 +45,7 @@ public class AssemblingLogic : MonoBehaviour
     void AssembleCheck()
     {
         assemblingButton.interactable = true;
+        // send message to UI
     }
 
     public void Assemble()
@@ -61,27 +54,23 @@ public class AssemblingLogic : MonoBehaviour
         Invoke("InstantiateGolem", 0.3f);
         Debug.Log("Golem created!!");
 
+        //How to clean the parts from the list?
+
         //foreach (Item part in parts)
         //{
         //    parts.Remove(part);
         //}
+
+        parts.Clear();
+
         assemblingButton.interactable = false;
     }
 
     void InstantiateGolem()
     {
         Instantiate(currentGolem.golemResult, spawnPoint.position, Quaternion.identity);
+        //Instantiated or pooled?
+
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        //assemblingButton = GameObject.Find("AssemblingParent").GetComponentInChildren<Button>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
