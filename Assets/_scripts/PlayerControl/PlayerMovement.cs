@@ -23,7 +23,7 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private float playerSpeed = 2.0f;
     [SerializeField] private float jumpHeight = 1.0f;
-    [SerializeField] private float gravityValue = -100f; //-9.81f is the unity physics value
+    [SerializeField] private float gravityValue = -100f;
     [SerializeField] private float rotationSpeed = 4f;
     private float jumpConst = -3.0f;
     private Vector3 playerVelocity;
@@ -31,7 +31,6 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 movement;
 
     #endregion
-
 
     #region CameraComponent
     private Transform cam;
@@ -110,8 +109,7 @@ public class PlayerMovement : MonoBehaviour
         movementControl.action.Disable();
         jumpControl.action.Disable();
         crouchControl.action.Disable();
-        interactControl.action.Disable();
-        //cameraBrain.enabled = false;
+        interactControl.action.Disable();        
     }
 
     private void EnablingMovement()
@@ -119,8 +117,7 @@ public class PlayerMovement : MonoBehaviour
         movementControl.action.Enable();
         jumpControl.action.Enable();
         crouchControl.action.Enable();
-        interactControl.action.Enable();
-        //cameraBrain.enabled = true;
+        interactControl.action.Enable();        
     }
 
     private void CameraStateSwitch()
@@ -142,9 +139,7 @@ public class PlayerMovement : MonoBehaviour
                 playerLockCam.m_Priority = 0;
                 playerFreeCam.m_Priority = 0;
                 break;
-        }
-
-        //Debug.Log("directCam " + directObjCam.m_Priority + " || lockCam " + playerLockCam.m_Priority + " || freeCam " + playerFreeCam.m_Priority);
+        }        
     }
 
     private void MenuControlSwitch()
@@ -160,7 +155,6 @@ public class PlayerMovement : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
             EnablingMovement();
-
         }
     }
 
@@ -211,8 +205,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 movementState = MovementState.Idle;
                 anim.SetBool("run", false);                
-            }
-            
+            }            
         }
         #endregion
 
@@ -264,7 +257,7 @@ public class PlayerMovement : MonoBehaviour
                 CameraStateSwitch();
             }               
         }
-        if(crouchControl.action.ReadValue<float>() == 0)
+        else if(crouchControl.action.ReadValue<float>() == 0)
         {
             if(cameraMode != CameraMode.Free && cameraMode != CameraMode.OnObject)
             {
@@ -301,10 +294,5 @@ public class PlayerMovement : MonoBehaviour
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(groundChecker.position, groundCheckerRadius);
-    }
-
-    private void LateUpdate()
-    {
-        
     }
 }
