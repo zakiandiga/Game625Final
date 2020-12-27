@@ -7,6 +7,9 @@ using Cinemachine;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : MonoBehaviour
 {
+    //Add character visual game object as a children to the prefab
+    //Required cinemachine brain on main camera
+
     #region InputActionReference
     [SerializeField] private InputActionReference movementControl;
     [SerializeField] private InputActionReference jumpControl;
